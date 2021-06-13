@@ -52,6 +52,29 @@ Bee is in fact willing to pay what Danny needs to get paid.
 Notice that for r=.5, $PAY and $GET are equal 
 so it doesn't matter which you think in terms of.
 
-And for r=1, like if we'd bargled and you'd ceded none of the decision and wanted to be paid at least $200, you'd bid {$0, $200} (no chance of you having to pay) and if I wanted to pay up to $300 I'd bid {$300, $0} (no chance of me getting paid). So everything works nicely. Trying to think in terms of getting paid when you own none of the decision doesn't make sense and the formula yields division by zero, or, if you like, says you have to bid {$infinity, $1} if you want to get paid $1 which is guaranteed irrelevant because you bid infinity dollars and thus will win and be the one paying.
+And for r=1, what we call bargling, Bee cedes none of the decision and 
+say she wants to be paid at least $200, she'd bid {$0, $200} 
+(no chance of her having to pay) 
+and if Danny wanted to pay up to $300 he'd bid {$300, $0} 
+(no chance of him getting paid). 
+So everything works nicely. 
+Trying to think in terms of getting paid when you own none of the decision 
+doesn't make sense and the formula yields division by zero, or, if you like, 
+says you have to bid {$infinity, $1} if you want to get paid $1 
+which is guaranteed irrelevant because you bid infinity dollars and 
+thus will win and be the one paying.
 
-Or, out of purely mathematical curiosity, suppose you bid {$0, $infinity} i.e. "fuck no and fuck you and all your descendants for all time" and I bid {$infinity, $1} then we tie and the coin flip says either I pay you infinity dollars, in which case, fine, I guess? Or the coin flip says you win but have to pay me $1 which is pretty not ok, because it was bargling and you're having to pay $1 (which could've been *any* amount of money!) just to keep your own thingy or whatever it was. But more to the point, if you own 0% of the decision then your "get paid" number is necessarily $0 as long as your "pay" number is finite, and everything is fine again. So, yeah, real numbers only!
+Or, out of purely mathematical curiosity, suppose you bid 
+{$0, $infinity} i.e. "fuck no and fuck you and all your descendants for all time" 
+and I bid 
+{$infinity, $1} 
+then we tie and the coin flip says either I pay you infinity dollars, 
+in which case, fine, I guess? 
+Or the coin flip says you win but have to pay me $1 which is pretty not ok, 
+because it was bargling and you're having to pay $1 
+(which could've been *any* amount of money!) 
+just to keep your own thingy or whatever it was. 
+But more to the point, if you own 0% of the decision then your 
+"get paid" number is necessarily $0 as long as your "pay" number is finite, 
+and everything is fine again. 
+So, yeah, real numbers only!
