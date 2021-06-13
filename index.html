@@ -13,10 +13,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">  
 <link rel="stylesheet" href="/style.css">
 <script crossorigin defer
-src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
-<script crossorigin defer
-src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.31/moment-timezone-with-data.min.js"></script>
-<script crossorigin defer
 src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script crossorigin 
 src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
@@ -30,60 +26,13 @@ src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>  
 <body>
 
-<!-- 
-this works on jsfiddle.net but here it seems to be showing everything wider than a thin space as the same width...
-<h3>Testing different kinds of spaces:</h3>
-<span style="background-color:red">&#8202;</span> hair space<br/>
-<span style="background-color:red">&#8239;</span> narrow no-break space<br/>
-<span style="background-color:red">&thinsp;</span> thin space (8201)<br/>
-<span style="background-color:red">&#8198;</span> 6-per-em space<br/>
-<span style="background-color:red">&#8197;</span> 4-per-em space<br/>
-<span style="background-color:red">&#8200;</span> punctuation space<br/>
-<span style="background-color:red">&nbsp;</span> non breaking space<br/>
-<span style="background-color:red">&#8287;</span> mathematical space<br/>
-<span style="background-color:red">&#8196;</span> 3-per-em space<br/>
-<span style="background-color:red">&ensp;</span> en space (8194)<br/>
-<span style="background-color:red">&#8199;</span> figure space<br/>
-<span style="background-color:red">&emsp;</span> em space (8195) <br/>
--->
 
-<h1>Pumpkin Time</h1>
-<h2>How to display deadlines to users</h2>
+<h1>Decision Auction</h1>
+<h2>Instructions blah blah</h2>
 
 <div id="root">Loading...</div>
 
-<main>
-
-<!--
-<form autocomplete="off" id="tform">
-  <input id="tfield" tabindex="1" 
-         type="text" size="40" placeholder="5pm">
-</form>
--->
-  
-<h3>Test Suite</h3>
-  
-<table width="100%" style="white-space:nowrap;">
-<thead>
-<tr>
-<th><div title="Test number, as-of date, deadline (timezone)">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-  as-of AKA now &xrarr; deadline <font color="#999999">(TZ)</font></div></th>
-<th><div title="String to show user if they care about the delta">relative</div></th>
-<th><div title="String to show user if they care about the actual date / time of day (and explicit timezone if wanted, shown in gray)">absolute <font color="#999999">w/ TZ</font></div></th>
-</tr>
-</thead>
-<tbody id="ttable">
-</tbody>
-</table>
-
-<h3>New Test Suite (if all of the above deviations are &#x1F44D;)</h3>
-<font color="#999999">
-<pre id="gsuite">
-</pre>
-</font>
-
-<div id="sanity"></div>
+<main>  
 </main>
 
   
