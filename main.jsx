@@ -12,9 +12,10 @@ const GRAY = "#999999"
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
-    pie: 0,
-    pay: 0,
-    get: 0,
+    fra: 0, // fraction of the decision that's yours
+    pie: 0, // value of the whole decision
+    pay: 0, // how much you'll pay (at most) if you win
+    get: 0, // how much you'll get paid if you lose
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
@@ -30,20 +31,6 @@ class Bid extends React.Component {
   
   chgF = e => { // do this when the fraction-of-pie field changes
     this.set
-  }
-
-  chgD = e => { // do this when the deadline field changes
-    let v = e.target.value.trim() // contents of the actual field
-    const [dl, td] = parsedl(v, this.state.tz)
-    this.setState({dlraw: v, dl, td})
-  }
-  
-  chgT = e => { // do this when the timezone field changes
-    const v = e.target.value // contents of the actual field
-    const tz = /^\s*$/.test(v) ? BTZ : v
-    const ao       = parseao(this.state.aoraw, tz)
-    const [dl, td] = parsedl(this.state.dlraw, tz)
-    this.setState({tz, ao, dl, td})
   }
   
   render() { return ( <div>
