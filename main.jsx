@@ -12,41 +12,26 @@ const GRAY = "#999999"
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
-    pay: 0
-    aoraw: '',                               // as-of / current-time as entered
-    dlraw: '',                               // deadline as entered
-    ao: unixtm(),                            // as-of / current-time in unixtime
-    nw: true,                                // auto-refresh as-of to be _now_
-    dl: unixtm(dayfloor(new Date()))+86400,  // deadline in unixtime
-    td: -1,             // time to deadline in seconds (invariant: dl<0 or td<0)
-    tz: BTZ, 
+    pie: 0,
+    pay: 0,
+    get: 0,
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  dl = () => this.state.dl < 0 ? this.state.ao + this.state.td : this.state.dl
+  pay = () => this.state.get
 
-  doomTill   = () => beetils.doomString(this.dl(), "countdown", this.state.tz,
-                                        this.state.ao,          this.state.tz)
-  doomWhen   = () => beetils.doomString(this.dl(), "calendar",  this.state.tz, 
-                                        this.state.ao,          this.state.tz)
-  doomWhenTZ = () => beetils.doomString(this.dl(), "calendar",  "_not_a_TZ_!", 
-                                        this.state.ao,          this.state.tz)
+  chgP = e => { // do this when the pay field changes
+    this.setState({get: e.target.value.trim()})
+  }
 
-  tick = () => { if (this.state.nw) this.setState({ ao: unixtm() }) }
-  
-  red = (s) => `<font color="#FF0000">${s}</font>`
-  
-  componentWillMount = () => { setInterval(this.tick, 1000) }
-  
-  chgA = e => { // do this when the as-of / current-time field changes
-    const v = e.target.value.trim() // contents of the actual field
-    if (/^\s*(?:now)?\s*$/i.test(v)) { // as-of is "now" or blank
-      this.setState({aoraw: v, ao: unixtm(), nw: true })
-    } else {
-      this.setState({aoraw: v, ao: parsedate(v, this.state.tz), nw: false})
-    }
+  chgG = e => { // do this when the get field changes
+    this.setState({get: e.target.value.trim()})
   }
   
+  chgF = e => { // do this when the fraction-of-pie field changes
+    this.set
+  }
+
   chgD = e => { // do this when the deadline field changes
     let v = e.target.value.trim() // contents of the actual field
     const [dl, td] = parsedl(v, this.state.tz)
