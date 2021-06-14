@@ -30,6 +30,7 @@ class Bid extends React.Component {
       pay: this.state.pay,
       get: this.state.pay / (1-x) * x,
     })
+    document.getElementById("fmv").value
   }
 
   dFmv = e => { // do this when the fmv field changes
