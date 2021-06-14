@@ -65,7 +65,7 @@ class Bid extends React.Component {
   render() { return ( <div>
     <div className="control-group">
       <label className="control-label" for="pie">
-        Fraction of decision that's yours:
+        Fraction of the decision that's yours:
       </label>
       <div className="controls">
         <input className="form-control" type="text" autofocus
@@ -73,56 +73,33 @@ class Bid extends React.Component {
                onChange={this.dPie}/>
       </div>
       <br></br>
-      <label className="control-label" for="dead">
-        Deadline (as above or, e.g., +{beetils.genHMS(1*3600+5*60)}):
+      <label className="control-label" for="fmv">
+        Fair Market Value (FMV) of the decision:
       </label>
       <div className="controls">
         <input className="form-control" type="text"
-               placeholder="time of day or amount of time" 
-               onChange={this.chgD}/>
+               placeholder="any dollar value" 
+               onChange={this.dFmv}/>
       </div>
       <br></br>
-      <label className="control-label" for="tz">
-        Timezone string:
+      <label className="control-label" for="pay">
+        Most you'll pay if you win:
       </label>
       <div className="controls">
         <input className="form-control" type="text"
-               placeholder="e.g., America/Los_Angeles" 
-               onChange={this.chgT}/>
+               placeholder="dollar value &lt; FMV" 
+               onChange={this.dPay}/>
+      </div>
+      <br></br>
+      <label className="control-label" for="get">
+        Amount you'll get paid if you lose:
+      </label>
+      <div className="controls">
+        <input className="form-control" type="text"
+               placeholder="dollar value &lt; FMV" 
+               onChange={this.dGet}/>
       </div>
     </div>
-    <h2>Canonicalized Inputs</h2>
-    <p><font size="+2">As of: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      {shd(this.state.ao, this.state.tz, true)}</font> &nbsp;&nbsp;
-      <font size="-4">{Math.round(this.state.ao)}</font>
-    </p>
-    <p><font size="+2">Deadline: &nbsp;
-      {shd(this.dl(), this.state.tz, true)}</font>
-      &nbsp; &nbsp;
-      <font size="-4">{Math.round(this.dl(), this.state.tz)}</font>
-    </p>
-    <p><font size="+2">Timezone: {' '}
-      {beetils.tzDescribe(this.state.tz, this.dl())}</font></p>
-    <h2>Outputs</h2>
-    <font size="+2">
-    <p><div dangerouslySetInnerHTML={{__html: 
-      this.dl() - this.state.ao < 0 ? this.red(this.doomTill()) :
-                                      this.doomTill()}}/></p>
-    <p>{this.doomWhen()}</p>
-    <p>{this.doomWhenTZ()}</p>
-    </font>
-{/* <p><font color={GRAY}>[DEBUG: 
-  {this.state.ao}, {this.state.nw ? "now" : "fixed"}, 
-  dl={this.state.dl}, td={this.state.td}, {this.state.tz}]</font></p> 
-*/}
-    <p><font color={GRAY}>For adding the above to the test suite:<br/> <pre>[
-      {this.state.ao}, {this.dl()}, {constify(this.state.tz)},
-      "{this.doomTill()}", "{this.doomWhen()}", "{this.doomWhenTZ()}"],</pre>
-{/* "{beetils.doomTill(this.state.ao, this.dl())}",
-    "{beetils.doomWhen(this.state.ao, this.dl(), false, this.state.tz)}",
-    "{beetils.doomWhen(this.state.ao, this.dl(), true,  this.state.tz)}"],</pre>
-*/}
-    </font></p>
   </div> ) }
 }
 
