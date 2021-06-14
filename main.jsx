@@ -12,10 +12,10 @@ const GRAY = "#999999"
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
-    pie: 0, // fraction of the decision that's yours
-    fmv: 0, // fair market value: value of the whole decision
-    pay: 0, // how much you'll pay (at most) if you win
-    get: 0, // how much you'll get paid if you lose
+    pie: 0.5, // fraction of the decision that's yours
+    fmv: 0,   // fair market value: value of the whole decision
+    pay: 0,   // how much you'll pay (at most) if you win
+    get: 0,   // how much you'll get paid if you lose
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
@@ -87,7 +87,7 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input className="form-control" type="text"
-               placeholder="dollar value &lt; FMV" 
+               placeholder="dollar value &le; FMV" 
                onChange={this.dPay}/>
       </div>
       <br></br>
@@ -96,10 +96,22 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input className="form-control" type="text"
-               placeholder="dollar value &lt; FMV" 
+               placeholder="dollar value &le; FMV" 
                onChange={this.dGet}/>
       </div>
     </div>
+    <div>
+      <br></br>
+      The decision is worth 
+      ${this.state.fmv}.
+      If you win you will pay up to 
+      ${this.state.pay} {/* */}
+      (for the {100*(1-this.state.pie)}% that's not yours)
+      and if you lose you'll get paid at least 
+      ${this.state.get}
+      (for the {100*this.state.pie}% that's yours)!
+    </div>
+    {this.state.pie}
   </div> ) }
 }
 
