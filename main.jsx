@@ -19,30 +19,58 @@ class Bid extends React.Component {
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  pay = () => this.state.get
+  //pay = () => this.state.get
 
-  chgP = e => { // do this when the pay field changes
-    this.setState({get: e.target.value.trim()})
+  // Glitch mistakenly says syntax error on next line but it's fine, really!
+  dPie = e => { // do this when the pie field changes
+    const x = e.target.value.trim() // contents of the actual field
+    this.setState({
+      pie: x,
+      fmv: this.state.pay / (1-x),
+      pay: this.state.pay,
+      get: this.state.pay / (1-x) * x,
+    })
   }
 
-  chgG = e => { // do this when the get field changes
-    this.setState({get: e.target.value.trim()})
+  dFmv = e => { // do this when the fmv field changes
+    const x = e.target.value.trim() // contents of the actual field
+    this.setState({
+      pie: this.state.pie,
+      fmv: x,
+      pay: x * (1 - this.state.pie),
+      get: x * this.state.pie,
+    })
   }
   
-  chgF = e => { // do this when the fraction-of-pie field changes
-    this.set
+  dPay = e => { // do this when the fmv field changes
+    const x = e.target.value.trim() // contents of the actual field
+    this.setState({
+      pie: this.state.pie,
+      fmv: x / (1 - this.state.pie),
+      pay: x,
+      get: x * this.state.pie / (1 - this.state.pie),
+    })
+  }
+  
+  dGet = e => { // do this when the fmv field changes
+    const x = e.target.value.trim() // contents of the actual field
+    this.setState({
+      pie: this.state.pie,
+      fmv: x / this.state.pie,
+      pay: x * (1 - this.state.pie) / this.state.pie,
+      get: x,
+    })
   }
   
   render() { return ( <div>
     <div className="control-group">
-      <label className="control-label" for="heep">
-        Current/as-of time (YMDHMS or unixtime):
+      <label className="control-label" for="pie">
+        Fraction of decision that's yours:
       </label>
       <div className="controls">
         <input className="form-control" type="text" autofocus
-               placeholder="time of day, default now"
-               //value={genTOD(now())} // doing this doesn't let you edit it :(
-               onChange={this.chgA}/>
+               placeholder="a number from 0 to 1"
+               onChange={this.dPie}/>
       </div>
       <br></br>
       <label className="control-label" for="dead">
