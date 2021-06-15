@@ -13,6 +13,14 @@ function $(id) { return document.getElementById(id) } // convenience function
 // Round x to 2 decimal places
 function r2(x) { return Math.round(100*x) / 100 }
 
+function shnow() {
+  const o = new Date()
+  const y = o.getFullYear()
+  const m = 1 + o.getMonth()
+  const d = o.getDate()
+  return `${y}.${m < 10 ? '0' + m : m}.${d < 10 ? '0' + d : d}`
+}
+
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
@@ -66,9 +74,7 @@ class Bid extends React.Component {
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/>
       </div>
-      <br></br>
-      <hr></hr>
-      <br></br>
+      <br></br><hr></hr><br></br>
       <b>Your Bid:</b> {/* */}
         <font color={GRAY}>(any of these imply the other two)</font>
       <br></br>
@@ -101,20 +107,25 @@ class Bid extends React.Component {
       </div>
     </div>
     <div>
+      <br></br><hr></hr><br></br>
+      <b>If <i>your</i> FMV (${}) is higher:</b>
       <br></br>
       <br></br>
-      The decision is worth 
-      ${this.state.fmv}.
-      <br></br>
-      If you win, you'll pay up to 
+      You'll pay up to 
       ${this.state.pay} {/* */}
-      (for the {Math.round(100*(1-this.state.pie))}% that's not yours).<br></br>
-      If you lose, you'll get paid 
+      (for the {Math.round(100*(1-this.state.pie))}% that's not yours).
+      <br></br>
+      <br></br>
+      <br></br>
+      <b>If <i>their</i> FMV is higher:</b>
+      <br></br>
+      <br></br>
+      You'll get paid 
       ${this.state.get} {/* */}
       (for the {Math.round(100*this.state.pie)}% that's yours).
       <br></br>
       <pre>
-        iou[2021.06.15, {this.state.get}, them, you, "decision auction"]
+        iou[{shnow()}, {this.state.get}, them, you, "decision auction"]
       </pre>      
     </div>
   </div> ) }
