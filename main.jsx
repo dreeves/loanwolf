@@ -13,7 +13,8 @@ function $(id) { return document.getElementById(id) } // convenience function
 // Round x to 2 decimal places
 function r2(x) { return Math.round(100*x) / 100 }
 
-function shnow() {
+// Return the current date like "2021.06.15"
+function ymd() {
   const o = new Date()
   const y = o.getFullYear()
   const m = 1 + o.getMonth()
@@ -84,7 +85,7 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input id="fmv" className="form-control" type="text"
-               placeholder="any dollar value" 
+               placeholder="dollar value" 
                onChange={this.dFmv}/>
       </div>
       <br></br>
@@ -93,7 +94,7 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input id="pay" className="form-control" type="text"
-               placeholder="dollar value &le; FMV" 
+               placeholder="dollar value" 
                onChange={this.dPay}/>
       </div>
       <br></br>
@@ -102,13 +103,13 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input id="get" className="form-control" type="text"
-               placeholder="dollar value &le; FMV" 
+               placeholder="dollar value" 
                onChange={this.dGet}/>
       </div>
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      <b>If <i>your</i> FMV (${}) is higher:</b>
+      <b>If <i>your</i> FMV of ${this.state.fmv} is higher:</b>
       <br></br>
       <br></br>
       You'll pay up to 
@@ -125,7 +126,7 @@ class Bid extends React.Component {
       (for the {Math.round(100*this.state.pie)}% that's yours).
       <br></br>
       <pre>
-        iou[{shnow()}, {this.state.get}, them, you, "decision auction"]
+        iou[{ymd()}, {this.state.get}, them, you, "decision auction"]
       </pre>      
     </div>
   </div> ) }
