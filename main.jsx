@@ -35,14 +35,11 @@ class Bid extends React.Component {
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const fmv = e.target.value.trim() // contents of the actual field
-    const 
-    this.setState({
-      fmv: x,
-      pay: x * (1 - this.state.pie),
-      get: x * this.state.pie,
-    })
-    document.getElementById("pay").value = x * (1 - this.state.pie)
-    document.getElementById("get").value = this.state.get
+    const pay = fmv * (1 - pie)
+    const get = fmv * pie
+    this.setState({ fmv, pay, get })
+    document.getElementById("pay").value = pay
+    document.getElementById("get").value = get
   }
   
   dPay = e => { // do this when the fmv field changes
