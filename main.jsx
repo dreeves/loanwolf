@@ -19,9 +19,6 @@ class Bid extends React.Component {
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  //pay = () => this.state.get
-
-  // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
     const x = e.target.value.trim() // contents of the actual field
     this.setState({
@@ -36,27 +33,25 @@ class Bid extends React.Component {
   }
 
   dFmv = e => { // do this when the fmv field changes
-    const x = e.target.value.trim() // contents of the actual field
+    const pie = this.state.pie
+    const fmv = e.target.value.trim() // contents of the actual field
+    const 
     this.setState({
-      pie: this.state.pie,
       fmv: x,
       pay: x * (1 - this.state.pie),
       get: x * this.state.pie,
     })
-    document.getElementById("pie").value = this.state.pie
-    document.getElementById("pay").value = this.state.pay
+    document.getElementById("pay").value = x * (1 - this.state.pie)
     document.getElementById("get").value = this.state.get
   }
   
   dPay = e => { // do this when the fmv field changes
     const x = e.target.value.trim() // contents of the actual field
     this.setState({
-      pie: this.state.pie,
       fmv: x / (1 - this.state.pie),
       pay: x,
       get: x * this.state.pie / (1 - this.state.pie),
     })
-    document.getElementById("pie").value = this.state.pie
     document.getElementById("fmv").value = this.state.fmv
     document.getElementById("get").value = this.state.get
   }
@@ -81,7 +76,7 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input id="pie" className="form-control" type="text" autofocus
-               width="10"
+               value={this.state.pie}
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/>
       </div>
@@ -120,7 +115,7 @@ class Bid extends React.Component {
       If you win you will pay up to 
       ${this.state.pay} {/* */}
       (for the {100*(1-this.state.pie)}% that's not yours)
-      and if you lose you'll get paid at least 
+      and if you lose you'll get paid 
       ${this.state.get} {/* */}
       (for the {100*this.state.pie}% that's yours)!
     </div>
