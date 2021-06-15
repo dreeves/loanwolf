@@ -2,6 +2,8 @@
  *                             CONSTANTS & GLOBALS                            *
  ******************************************************************************/
 
+const GRAY = "#999999"
+
 /******************************************************************************
  *                             REACT-IVE WEBSITE                              *
  ******************************************************************************/
@@ -65,6 +67,12 @@ class Bid extends React.Component {
                onChange={this.dPie}/>
       </div>
       <br></br>
+      <hr></hr>
+      <br></br>
+      Your Bid: {/* */}
+        <font color={GRAY}>(any of these imply the other two)</font>
+      <br></br>
+      <br></br>
       <label className="control-label" for="fmv">
         Fair Market Value (FMV) of the decision:
       </label>
@@ -93,6 +101,7 @@ class Bid extends React.Component {
       </div>
     </div>
     <div>
+      <br></br>
       <br></br>
       The decision is worth 
       ${this.state.fmv}.
