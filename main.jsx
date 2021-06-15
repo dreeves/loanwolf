@@ -9,7 +9,10 @@ const GRAY = "#999999"
  *                             REACT-IVE WEBSITE                              *
  ******************************************************************************/
 
-function $(id) { return document.getElementById(id) }
+function $(id) { return document.getElementById(id) } // convenience function
+
+// Round x to 2 decimal places
+function r2(x) { return Math.round(100*x) / 100 }
 
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
@@ -24,32 +27,32 @@ class Bid extends React.Component {
   dPie = e => { // do this when the pie field changes
     const pay = this.state.pay
     const pie = e.target.value.trim() // contents of the actual field
-    const fmv = pay / (1 - pie); $("fmv").value = fmv
-    const get = fmv * pie;       $("get").value = get
+    const fmv = r2(pay / (1 - pie)); $("fmv").value = fmv
+    const get = r2(fmv * pie);       $("get").value = get
     this.setState({ pie, fmv, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const fmv = e.target.value.trim() // contents of the actual field
-    const pay = fmv * (1 - pie); $("pay").value = pay
-    const get = fmv * pie;       $("get").value = get
+    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
+    const get = r2(fmv * pie);       $("get").value = get
     this.setState({ fmv, pay, get })
   }
   
   dPay = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const pay = e.target.value.trim() // contents of the actual field
-    const fmv = pay / (1 - pie); $("fmv").value = fmv
-    const get = fmv * pie;       $("get").value = get
+    const fmv = r2(pay / (1 - pie)); $("fmv").value = fmv
+    const get = r2(fmv * pie);       $("get").value = get
     this.setState({ fmv, pay, get })
   }
   
   dGet = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const get = e.target.value.trim() // contents of the actual field
-    const fmv = get / pie;       $("fmv").value = fmv
-    const pay = fmv * (1 - pie); $("pay").value = pay
+    const fmv = r2(get / pie);       $("fmv").value = fmv
+    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
     this.setState({ fmv, pay, get })
   }
   
