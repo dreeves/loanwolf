@@ -99,10 +99,10 @@ class Bid extends React.Component {
       <br></br>
       If you win, you'll pay up to 
       ${this.state.pay} {/* */}
-      (for the {100*(1-this.state.pie)}% that's not yours).<br></br>
+      (for the {Math.round(100*(1-this.state.pie))}% that's not yours).<br></br>
       If you lose, you'll get paid 
       ${this.state.get} {/* */}
-      (for the {100*this.state.pie}% that's yours).
+      (for the {Math.round(100*this.state.pie)}% that's yours).
     </div>
   </div> ) }
 }
