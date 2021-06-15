@@ -109,7 +109,7 @@ class Bid extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      <b>If <i>your</i> FMV of ${this.state.fmv} is higher:</b>
+      <b>If your FMV of ${this.state.fmv} is higher:</b>
       <br></br>
       <br></br>
       You'll pay up to 
