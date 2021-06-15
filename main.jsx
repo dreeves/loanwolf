@@ -20,30 +20,25 @@ class Bid extends React.Component {
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
-    const x = e.target.value.trim() // contents of the actual field
-    this.setState({
-      pie: x,
-      fmv: this.state.pay / (1-x),
-      pay: this.state.pay,
-      get: this.state.pay / (1-x) * x,
-    })
-    document.getElementById("fmv").value = this.state.fmv
-    document.getElementById("pay").value = this.state.pay
-    document.getElementById("get").value = this.state.get
+    const pay = this.state.pay
+    const pie = e.target.value.trim() // contents of the actual field
+    const fmv = pay / (1 - pie); document.getElementById("fmv").value = fmv
+    const get = fmv * pie;       document.getElementById("get").value = get
+    this.setState({ pie, fmv, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const fmv = e.target.value.trim() // contents of the actual field
-    const pay = fmv * (1 - pie)
-    const get = fmv * pie
+    const pay = fmv * (1 - pie); document.getElementById("pay").value = pay
+    const get = fmv * pie;       document.getElementById("get").value = get
     this.setState({ fmv, pay, get })
-    document.getElementById("pay").value = pay
-    document.getElementById("get").value = get
   }
   
   dPay = e => { // do this when the fmv field changes
-    const x = e.target.value.trim() // contents of the actual field
+    const pie = this.state.pie
+    const pay = e.target.value.trim() // contents of the actual field
+    const fmv = pay / (1 - pie)
     this.setState({
       fmv: x / (1 - this.state.pie),
       pay: x,
