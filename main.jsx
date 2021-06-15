@@ -9,6 +9,8 @@ const GRAY = "#999999"
  *                             REACT-IVE WEBSITE                              *
  ******************************************************************************/
 
+function $(id) { return document.getElementById(id) }
+
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
@@ -22,43 +24,33 @@ class Bid extends React.Component {
   dPie = e => { // do this when the pie field changes
     const pay = this.state.pay
     const pie = e.target.value.trim() // contents of the actual field
-    const fmv = pay / (1 - pie); document.getElementById("fmv").value = fmv
-    const get = fmv * pie;       document.getElementById("get").value = get
+    const fmv = pay / (1 - pie); $("fmv").value = fmv
+    const get = fmv * pie;       $("get").value = get
     this.setState({ pie, fmv, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const fmv = e.target.value.trim() // contents of the actual field
-    const pay = fmv * (1 - pie); document.getElementById("pay").value = pay
-    const get = fmv * pie;       document.getElementById("get").value = get
+    const pay = fmv * (1 - pie); $("pay").value = pay
+    const get = fmv * pie;       $("get").value = get
     this.setState({ fmv, pay, get })
   }
   
   dPay = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const pay = e.target.value.trim() // contents of the actual field
-    const fmv = pay / (1 - pie)
-    this.setState({
-      fmv: x / (1 - this.state.pie),
-      pay: x,
-      get: x * this.state.pie / (1 - this.state.pie),
-    })
-    document.getElementById("fmv").value = this.state.fmv
-    document.getElementById("get").value = this.state.get
+    const fmv = pay / (1 - pie); $("fmv").value = fmv
+    const get = fmv * pie;       $("get").value = get
+    this.setState({ fmv, pay, get })
   }
   
   dGet = e => { // do this when the fmv field changes
-    const x = e.target.value.trim() // contents of the actual field
-    this.setState({
-      pie: this.state.pie,
-      fmv: x / this.state.pie,
-      pay: x * (1 - this.state.pie) / this.state.pie,
-      get: x,
-    })
-    document.getElementById("pie").value = this.state.pie
-    document.getElementById("fmv").value = this.state.fmv
-    document.getElementById("pay").value = this.state.pay
+    const pie = this.state.pie
+    const get = e.target.value.trim() // contents of the actual field
+    const fmv = get / pie;       $("fmv").value = fmv
+    const pay = fmv * (1 - pie); $("pay").value = pay
+    this.setState({ fmv, pay, get })
   }
   
   render() { return ( <div>
