@@ -69,7 +69,7 @@ class Bid extends React.Component {
       <br></br>
       <hr></hr>
       <br></br>
-      Your Bid: {/* */}
+      <b>Your Bid:</b> {/* */}
         <font color={GRAY}>(any of these imply the other two)</font>
       <br></br>
       <br></br>
@@ -112,6 +112,10 @@ class Bid extends React.Component {
       If you lose, you'll get paid 
       ${this.state.get} {/* */}
       (for the {Math.round(100*this.state.pie)}% that's yours).
+      <br></br>
+      <pre>
+        iou[2021.06.15, {this.state.get}, them, you, "decision auction"]
+      </pre>      
     </div>
   </div> ) }
 }

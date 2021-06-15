@@ -12,7 +12,7 @@
 body {
   font-family: helvetica, arial, sans-serif;
   margin: 25px;
-  background-color: #fef2c0;
+  background-color: #bcf5bc;
 }
 
 input { 
@@ -21,7 +21,7 @@ input {
   border-radius: 3px;
   max-width: 287px;
   font-size: 16px;
-  width: calc(100% - 148px); 
+  /* width: calc(100% - 148px); */
 }
 
 label {
@@ -43,7 +43,7 @@ input[type="submit"] {
   color: black;
   border: 1px solid gray;
   border-radius: 5px;
-  background-color: yellow;
+  background-color: green;
   text-decoration: none;
 }
 .pure-button-hover,
