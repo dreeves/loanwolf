@@ -2,9 +2,6 @@
  *                             CONSTANTS & GLOBALS                            *
  ******************************************************************************/
 
-let TID = null     // Timer ID for interval timer, for refreshing every second
-const GRAY = "#999999"
-
 /******************************************************************************
  *                             REACT-IVE WEBSITE                              *
  ******************************************************************************/
@@ -99,12 +96,13 @@ class Bid extends React.Component {
       <br></br>
       The decision is worth 
       ${this.state.fmv}.
-      If you win you will pay up to 
+      <br></br>
+      If you win, you'll pay up to 
       ${this.state.pay} {/* */}
-      (for the {100*(1-this.state.pie)}% that's not yours)
-      and if you lose you'll get paid 
+      (for the {100*(1-this.state.pie)}% that's not yours).<br></br>
+      If you lose, you'll get paid 
       ${this.state.get} {/* */}
-      (for the {100*this.state.pie}% that's yours)!
+      (for the {100*this.state.pie}% that's yours).
     </div>
   </div> ) }
 }
