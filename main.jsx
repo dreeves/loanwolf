@@ -67,7 +67,7 @@ class Bid extends React.Component {
   render() { return ( <div>
     <div className="control-group">
       <label className="control-label" for="pie">
-        Fraction of the decision that's yours:
+        Fraction of the thing/decision that's yours:
       </label>
       <div className="controls">
         <input id="pie" className="form-control" type="text" autofocus
