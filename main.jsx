@@ -30,7 +30,9 @@ class Bid extends React.Component {
       pay: this.state.pay,
       get: this.state.pay / (1-x) * x,
     })
-    document.getElementById("fmv").value
+    document.getElementById("fmv").value = this.state.fmv
+    document.getElementById("pay").value = this.state.pay
+    document.getElementById("get").value = this.state.get
   }
 
   dFmv = e => { // do this when the fmv field changes
@@ -41,6 +43,9 @@ class Bid extends React.Component {
       pay: x * (1 - this.state.pie),
       get: x * this.state.pie,
     })
+    document.getElementById("pie").value = this.state.pie
+    document.getElementById("pay").value = this.state.pay
+    document.getElementById("get").value = this.state.get
   }
   
   dPay = e => { // do this when the fmv field changes
@@ -51,6 +56,9 @@ class Bid extends React.Component {
       pay: x,
       get: x * this.state.pie / (1 - this.state.pie),
     })
+    document.getElementById("pie").value = this.state.pie
+    document.getElementById("fmv").value = this.state.fmv
+    document.getElementById("get").value = this.state.get
   }
   
   dGet = e => { // do this when the fmv field changes
@@ -61,6 +69,9 @@ class Bid extends React.Component {
       pay: x * (1 - this.state.pie) / this.state.pie,
       get: x,
     })
+    document.getElementById("pie").value = this.state.pie
+    document.getElementById("fmv").value = this.state.fmv
+    document.getElementById("pay").value = this.state.pay
   }
   
   render() { return ( <div>
@@ -69,7 +80,8 @@ class Bid extends React.Component {
         Fraction of the decision that's yours:
       </label>
       <div className="controls">
-        <input className="form-control" type="text" autofocus
+        <input id="pie" className="form-control" type="text" autofocus
+               width="10"
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/>
       </div>
@@ -78,7 +90,7 @@ class Bid extends React.Component {
         Fair Market Value (FMV) of the decision:
       </label>
       <div className="controls">
-        <input className="form-control" type="text"
+        <input id="fmv" className="form-control" type="text"
                placeholder="any dollar value" 
                onChange={this.dFmv}/>
       </div>
@@ -87,7 +99,7 @@ class Bid extends React.Component {
         Most you'll pay if you win:
       </label>
       <div className="controls">
-        <input className="form-control" type="text"
+        <input id="pay" className="form-control" type="text"
                placeholder="dollar value &le; FMV" 
                onChange={this.dPay}/>
       </div>
@@ -96,7 +108,7 @@ class Bid extends React.Component {
         Amount you'll get paid if you lose:
       </label>
       <div className="controls">
-        <input className="form-control" type="text"
+        <input id="get" className="form-control" type="text"
                placeholder="dollar value &le; FMV" 
                onChange={this.dGet}/>
       </div>
@@ -109,10 +121,9 @@ class Bid extends React.Component {
       ${this.state.pay} {/* */}
       (for the {100*(1-this.state.pie)}% that's not yours)
       and if you lose you'll get paid at least 
-      ${this.state.get}
+      ${this.state.get} {/* */}
       (for the {100*this.state.pie}% that's yours)!
     </div>
-    {this.state.pie}
   </div> ) }
 }
 
