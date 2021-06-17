@@ -74,7 +74,7 @@ class Bid extends React.Component {
                value={this.state.pie}
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/> &nbsp;
-        test
+        {`${Math.round(100*(1-this.state.pie))}/${Math.round(100*this.state.pie)} them/you`}
       </div>
       <br></br><hr></hr><br></br>
       <b>Your Bid:</b> {/* */}
