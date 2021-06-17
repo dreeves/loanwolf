@@ -33,11 +33,11 @@ class Bid extends React.Component {
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
-    const pay = this.state.pay
+    const fmv = this.state.fmv
     const pie = e.target.value.trim() // contents of the actual field
-    const fmv = r2(pay / (1 - pie)); $("fmv").value = fmv
+    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
     const get = r2(fmv * pie);       $("get").value = get
-    this.setState({ pie, fmv, get })
+    this.setState({ pie, pay, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
@@ -73,7 +73,8 @@ class Bid extends React.Component {
         <input id="pie" className="form-control" type="text" autofocus
                value={this.state.pie}
                placeholder="a number from 0 to 1"
-               onChange={this.dPie}/>
+               onChange={this.dPie}/> &nbsp;
+        test
       </div>
       <br></br><hr></hr><br></br>
       <b>Your Bid:</b> {/* */}
