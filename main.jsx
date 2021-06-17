@@ -32,7 +32,9 @@ function laxeval(s) {
 }
 
 function parsefrac(s) {
-  s = s.replace()
+  s = s.replace(/^([^\%])\%/, '($1)/100')
+  const x = laxeval(s)
+  return x===null ? NaN : x
 }
 
 // -----------------------------------------------------------------------------
@@ -84,10 +86,9 @@ class Bid extends React.Component {
       </label>
       <div className="controls">
         <input id="pie" className="form-control" type="text" autofocus
-               value={this.state.pie}
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/> &nbsp;
-        {`${Math.round(100*(1-this.state.pie))}/${Math.round(100*this.state.pie)} them/you`}
+        <font color={GRAY}>{`${Math.round(100*(1-this.state.pie))}/${Math.round(100*this.state.pie)} them/you`}</font>
       </div>
       <br></br><hr></hr><br></br>
       <b>Your Bid:</b> {/* */}
