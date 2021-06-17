@@ -32,9 +32,13 @@ function laxeval(s) {
 }
 
 function parsefrac(s) {
-  s = s.replace(/^([^\%])\%/, '($1)/100')
+  s = s.replace(/^([^\%]*)\%(.*)$/, '($1)/100$2')
   const x = laxeval(s)
   return x===null ? NaN : x
+}
+
+function showfrac(x) {
+  return Math.round(100*x)
 }
 
 // -----------------------------------------------------------------------------
@@ -49,7 +53,7 @@ class Bid extends React.Component {
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
     const fmv = this.state.fmv
-    const pie = e.target.value.trim() // contents of the actual field
+    const pie = parsefrac(e.target.value)
     const pay = r2(fmv * (1 - pie)); $("pay").value = pay
     const get = r2(fmv * pie);       $("get").value = get
     this.setState({ pie, pay, get })
@@ -88,7 +92,8 @@ class Bid extends React.Component {
         <input id="pie" className="form-control" type="text" autofocus
                placeholder="a number from 0 to 1"
                onChange={this.dPie}/> &nbsp;
-        <font color={GRAY}>{`${Math.round(100*(1-this.state.pie))}/${Math.round(100*this.state.pie)} them/you`}</font>
+        <font color={GRAY}>{`${showfrac(1-this.state.pie)}/` +
+                            `${showfrac(this.state.pie)} them/you`}</font>
       </div>
       <br></br><hr></hr><br></br>
       <b>Your Bid:</b> {/* */}
@@ -129,7 +134,7 @@ class Bid extends React.Component {
       <br></br>
       You'll pay up to 
       ${this.state.pay} {/* */}
-      (for the {Math.round(100*(1-this.state.pie))}% that's not yours).
+      (for the {showfrac(1-this.state.pie)}% that's not yours).
       <br></br>
       <br></br>
       <br></br>
