@@ -22,6 +22,19 @@ function ymd() {
   return `${y}.${m < 10 ? '0' + m : m}.${d < 10 ? '0' + d : d}`
 }
 
+// Eval but just return null if syntax error. 
+// Obviously don't use serverside with user-supplied input.
+function laxeval(s) {
+  try { 
+    var x = eval(s)
+    return typeof x === 'undefined' ? null : x
+  } catch(e) { return null } 
+}
+
+function parsefrac(s) {
+  s = s.replace()
+}
+
 // -----------------------------------------------------------------------------
 class Bid extends React.Component {
   constructor(props) { super(props); this.state = {
