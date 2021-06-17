@@ -26,7 +26,7 @@ function ymd() {
 // Obviously don't use serverside with user-supplied input.
 function laxeval(s) {
   try { 
-    var x = eval(s)
+    const x = eval(s)
     return typeof x === 'undefined' ? null : x
   } catch(e) { return null } 
 }
@@ -39,6 +39,18 @@ function parsefrac(s) {
 
 function showfrac(x) {
   return Math.round(100*x)
+}
+
+// Parse a string representing a dollar amount
+function par$e(s) {
+  s = s.replace(/\$/g, '') // strip out any dollar signs
+  const x = laxeval(s)     // allow any arithmetic like "1/2" or whatever
+  return x===null ? NaN : x
+}
+
+// Show a dollar amount as a string
+function $how(x) {
+  return '$' + Math.round(100*x) / 100
 }
 
 // -----------------------------------------------------------------------------
@@ -143,7 +155,7 @@ class Bid extends React.Component {
       <br></br>
       You'll get paid 
       ${this.state.get} {/* */}
-      (for the {Math.round(100*this.state.pie)}% that's yours).
+      (for the {showfrac(this.state.pie)}% that's yours).
       <br></br>
       <pre>
         iou[{ymd()}, {this.state.get}, them, you, "decision auction"]
