@@ -82,7 +82,7 @@ class Bid extends React.Component {
       <br></br>
       <br></br>
       <label className="control-label" for="fmv">
-        Fair Market Value (FMV) of the decision:
+        Fair Market Value (FMV):
       </label>
       <div className="controls">
         <input id="fmv" className="form-control" type="text"
@@ -91,7 +91,7 @@ class Bid extends React.Component {
       </div>
       <br></br>
       <label className="control-label" for="pay">
-        Most you'll pay if you win:
+        Most you pay if you win:
       </label>
       <div className="controls">
         <input id="pay" className="form-control" type="text"
@@ -100,7 +100,7 @@ class Bid extends React.Component {
       </div>
       <br></br>
       <label className="control-label" for="get">
-        Amount you'll get paid if you lose:
+        What you get paid if you lose:
       </label>
       <div className="controls">
         <input id="get" className="form-control" type="text"
