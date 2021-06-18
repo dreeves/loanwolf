@@ -62,33 +62,33 @@ class Bid extends React.Component {
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
     const pie = parsefrac(e.target.value)
-    const fmv = this.state.fmv;      $("fmv").value = $how(fmv)
-    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
-    const get = r2(fmv * pie);       $("get").value = $how(get)
+    const fmv = this.state.fmv;  $("fmv").value = $how(fmv)
+    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
+    const get = fmv * pie;       $("get").value = $how(get)
     this.setState({ pie, pay, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
     const fmv = par$e(e.target.value) // contents of the actual field
-    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
-    const get = r2(fmv * pie);       $("get").value = $how(get)
+    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
+    const get = fmv * pie;       $("get").value = $how(get)
     this.setState({ fmv, pay, get })
   }
   
   dPay = e => { // do this when the pay field changes
     const pie = this.state.pie
     const pay = par$e(e.target.value) // contents of the actual field
-    const fmv = r2(pay / (1 - pie)); $("fmv").value = fmv
-    const get = r2(fmv * pie);       $("get").value = $how(get)
+    const fmv = pay / (1 - pie); $("fmv").value = $how(fmv)
+    const get = fmv * pie;       $("get").value = $how(get)
     this.setState({ fmv, pay, get })
   }
   
   dGet = e => { // do this when the get field changes
     const pie = this.state.pie
     const get = par$e(e.target.value) // contents of the actual field
-    const fmv = r2(get / pie);       $("fmv").value = fmv
-    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
+    const fmv = get / pie;       $("fmv").value = $how(fmv)
+    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
     this.setState({ fmv, pay, get })
   }
   
@@ -138,11 +138,11 @@ class Bid extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      <b>If your FMV of ${this.state.fmv} is higher:</b>
+      <b>If your FMV of ${$how(this.state.fmv)} is higher:</b>
       <br></br>
       <br></br>
       You'll pay up to 
-      ${this.state.pay} {/* */}
+      ${$how(this.state.pay)} {/* */}
       (for the {showfrac(1-this.state.pie)}% that's not yours).
       <br></br>
       <br></br>
