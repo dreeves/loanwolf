@@ -10,9 +10,6 @@ const GRAY = "#999999"
 
 function $(id) { return document.getElementById(id) } // convenience function
 
-// Round x to 2 decimal places
-function r2(x) { return Math.round(100*x) / 100 }
-
 // Return the current date like "2021.06.15"
 function ymd() {
   const o = new Date()
@@ -50,7 +47,7 @@ function par$e(s) {
 
 // Show a dollar amount as a string
 function $how(x) {
-  return '$' + Math.round(100*x) / 100
+  return Math.round(100*x) / 100
 }
 
 // -----------------------------------------------------------------------------
@@ -64,34 +61,34 @@ class Bid extends React.Component {
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dPie = e => { // do this when the pie field changes
-    const fmv = this.state.fmv
     const pie = parsefrac(e.target.value)
-    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
-    const get = r2(fmv * pie);       $("get").value = get
+    const fmv = this.state.fmv;      $("fmv").value = $how(fmv)
+    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
+    const get = r2(fmv * pie);       $("get").value = $how(get)
     this.setState({ pie, pay, get })
   }
 
   dFmv = e => { // do this when the fmv field changes
     const pie = this.state.pie
-    const fmv = e.target.value.trim() // contents of the actual field
-    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
-    const get = r2(fmv * pie);       $("get").value = get
+    const fmv = par$e(e.target.value) // contents of the actual field
+    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
+    const get = r2(fmv * pie);       $("get").value = $how(get)
     this.setState({ fmv, pay, get })
   }
   
   dPay = e => { // do this when the pay field changes
     const pie = this.state.pie
-    const pay = e.target.value.trim() // contents of the actual field
+    const pay = par$e(e.target.value) // contents of the actual field
     const fmv = r2(pay / (1 - pie)); $("fmv").value = fmv
-    const get = r2(fmv * pie);       $("get").value = get
+    const get = r2(fmv * pie);       $("get").value = $how(get)
     this.setState({ fmv, pay, get })
   }
   
   dGet = e => { // do this when the get field changes
     const pie = this.state.pie
-    const get = e.target.value.trim() // contents of the actual field
+    const get = par$e(e.target.value) // contents of the actual field
     const fmv = r2(get / pie);       $("fmv").value = fmv
-    const pay = r2(fmv * (1 - pie)); $("pay").value = pay
+    const pay = r2(fmv * (1 - pie)); $("pay").value = $how(pay)
     this.setState({ fmv, pay, get })
   }
   
@@ -154,11 +151,11 @@ class Bid extends React.Component {
       <br></br>
       <br></br>
       You'll get paid 
-      ${this.state.get} {/* */}
+      ${$how(this.state.get)} {/* */}
       (for the {showfrac(this.state.pie)}% that's yours).
       <br></br>
       <pre>
-        iou[{ymd()}, {this.state.get}, them, you, "decision auction"]
+        iou[{ymd()}, {$how(this.state.get)}, them, you, "decision auction"]
       </pre>      
     </div>
   </div> ) }
