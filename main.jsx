@@ -47,7 +47,7 @@ function par$e(s) {
 
 // Show a dollar amount as a string
 function $how(x) {
-  return Math.round(100*x) / 100
+  return isNaN(x) ? '' : Math.round(100*x) / 100
 }
 
 // -----------------------------------------------------------------------------
