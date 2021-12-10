@@ -174,7 +174,7 @@ class Loan extends React.Component {
       </label>
       <div className="controls">
         <input id="lc" className="form-control" type="text"
-               placeholder="dollar amount" 
+               placeholder="dollar value" 
                onChange={this.dLC}/>
       </div>
       <br></br>
