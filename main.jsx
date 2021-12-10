@@ -64,11 +64,8 @@ function npv(x, fr, mr, rt) {
 }
 
 // Effective Interest Rate (as a percentage) that makes a stream of payments
-// totaling 
-// a loan amount la plus fraction of the loan fl paid as interest
-the above stream of
-// repayments have the same time-value as the principal of the loan.
-// Mathematica:
+// totaling la+la*fl (loan amount la plus fraction fl paid as interest) have the
+// same time-value as the principal of the loan. Mathematica:
 // NSolve[npv[la + la*fl, fr, mr, rt] == la, rt, Reals][[1, 1, 2]] * 100
 function eir(la, fl, fr, mr) {
   return 23 // TODO
@@ -77,34 +74,46 @@ function eir(la, fl, fr, mr) {
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
-    x: 68500, // (DOL)  principal aka loan amount
-    fp: 0, // (FRAC) fraction of principal to be paid as interest
-    p: 0,  // (DOL)  premium aka fixed fee for the loan
+    la: 68500, // (DOL)  principal aka loan amount
+    fl: 0, // (FRAC) fraction of principal to be paid as interest
+    lc: 0, // (DOL)  premium aka fixed fee for the loan aka loan cost
     fr: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
-    m: 0,  // (DOL)  monthly revenue
-    r: 0,  // (FRAC) yearly discount rate as a fraction
+    mr: 0, // (DOL)  monthly revenue
+    rt: 0, // (FRAC) yearly discount rate as a fraction
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  dX = e => { // do this when the x field changes
-    const x = par$e(e.target.value)
-    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+  dLA = e => { // do this when the la field changes
+    const la = par$e(e.target.value)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const m = this.state.m; $("m").value = $how(m)
-    const r = this.state.r; $("r").value = showfrac(r)
-    this.setState({ x })    
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ la })
   }
 
-  dFP = e => { // do this when the p field changes
-    const x = this.state.x; $("x").value = $how(x)
-    const fp = parsefrac(e.target.value)
+  dFL = e => { // do this when the fl field changes
+    const la = this.state.la; $("la").value = $how(la)
+    const fl = parsefrac(e.target.value)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const m = this.state.m; $("m").value = $how(m)
-    const r = this.state.r; $("r").value = showfrac(r)
-    this.setState({ p })
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ fl })
   }
 
-  dFR = e => { // do this when the f field changes
+  dLC = e => { // do this when the lc field changes
+    const la = this.state.la; $("la").value = $how(la)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const lc = par$e(e.target.value)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ lc })
+  }
+
+  dFR = e => { // do this when the fr field changes
     const x = this.state.x; $("x").value = $how(x)
     const fp = this.state.fp; //$("fp").value = showfrac(fp)
     const fr = parsefrac(e.target.value)
