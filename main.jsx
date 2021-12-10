@@ -2,7 +2,11 @@
  *                             CONSTANTS & GLOBALS                            *
  ******************************************************************************/
 
+const exp = Math.exp
+
 const GRAY = "#999999"
+const DIY = 365.25 // days in year
+const DIM = DIY/12 // days in month
 
 /******************************************************************************
  *                             REACT-IVE WEBSITE                              *
@@ -50,8 +54,17 @@ function $how(x) {
   return isNaN(x) ? '' : Math.round(100*x) / 100
 }
 
+// Net Present Value of principal x plus premium p*x paid in daily installments
+// equal to fraction f of daily revenue, where monthly revenue is m and the
+// yearly discount rate is r.
+// Mathematica: 
+// TimeValue[Annuity[f*m/DIM, x(1+p)/(f*m/DIM)], EffectiveInterest[r/DIY, 0], 0]
+function npv(x, p, f, m, r) {
+  return -(((1-(exp(r/DIY))^(-((DIM*(1 + p)*x)/(f*m))))*f*m)/(DIM - DIM*E^(r/DIY)))
+}
+
 // -----------------------------------------------------------------------------
-class Bid extends React.Component {
+class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
     pie: 0.5, // fraction of the decision that's yours
     fmv: 0,   // fair market value: value of the whole decision
@@ -161,7 +174,7 @@ class Bid extends React.Component {
   </div> ) }
 }
 
-ReactDOM.render(<Bid/>, document.getElementById('root'))
+ReactDOM.render(<Loan/>, document.getElementById('root'))
 
 /******************************************************************************
  *                              STATIC WEBSITE                                *
