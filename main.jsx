@@ -72,11 +72,15 @@ function npv(x, fr, mr, rt) {
 // the loan. Mathematica:
 // NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
 function eir(la, lc, fr, mr, min=0, max=1) {
-  let m = (min+max)/2
-  if (abs(min-max)<0.005) { return m }
-  let x2 = npv(la+lc, fr, mr, max)
-  if (x2 < la) { return eir(la, lc, fr, mr, min, 2*max)}
-  return .23 // TODO
+  if (max>100) { return Infinity }
+  const mid = (min+max)/2
+  if (abs(min-max)<0.005) { return mid }
+  const vmax = npv(la+lc, fr, mr, max)
+  if (vmax < la) { return eir(la, lc, fr, mr, min, 2*max) }
+  //const vmin = npv(la+lc, fr, mr, min) #SCHDEL
+  const vmid = npv(la+lc, fr, mr, mid)
+  if (vmid < la) { return eir(la, lc, fr, mr, mid, max) }
+  else           { return eir(la, lc, fr, mr, min, mid) }
 }
 
 // Find the loan cost that yields the given interest rate
