@@ -2,8 +2,6 @@
  *                             CONSTANTS & GLOBALS                            *
  ******************************************************************************/
 
-const exp = Math.exp
-const round = Math.round
 
 const GRAY = "#999999"
 const DIY = 365.25 // days in year
@@ -12,6 +10,9 @@ const DIM = DIY/12 // days in month
 /******************************************************************************
  *                             REACT-IVE WEBSITE                              *
  ******************************************************************************/
+
+const exp   = Math.exp
+const round = Math.round
 
 function $(id) { return document.getElementById(id) } // convenience function
 
@@ -33,6 +34,7 @@ function laxeval(s) {
   } catch(e) { return null } 
 }
 
+// Handles fractions and percents and any arithmatic expression
 function parsefrac(s) {
   s = s.replace(/^([^\%]*)\%(.*)$/, '($1)/100$2')
   const x = laxeval(s)
@@ -40,7 +42,7 @@ function parsefrac(s) {
 }
 
 function showfrac(x) {
-  return Math.round(100*x)
+  return round(100*x)+'%'
 }
 
 // Parse a string representing a dollar amount
@@ -63,12 +65,12 @@ function npv(x, fr, mr, rt) {
   return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
 }
 
-// Effective Interest Rate (as a percentage) that makes a stream of payments
-// totaling la+lc (loan amount la plus loan cost lc) have the same time-value as
-// la, the principal of the loan. Mathematica:
-// NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]] * 100
+// Effective Interest Rate that makes a stream of payments totaling la+lc (loan
+// amount la plus loan cost lc) have the same time-value as la, the principal of
+// the loan. Mathematica:
+// NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
 function eir(la, lc, fr, mr) {
-  return 23 // TODO
+  return .23 // TODO
 }
 
 // Inverse of above: what x makes GammaCDF(x, A, B) == p
@@ -110,51 +112,51 @@ class Loan extends React.Component {
   }
 
   dLC = e => { // do this when the lc field changes
-    const la = this.state.la; $("la").value = $how(la)
+    const la = this.state.la; //$("la").value = $how(la)
     const lc = par$e(e.target.value)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; $("mr").value = $how(mr)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
+    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
     this.setState({ lc })
   }
 
   dFL = e => { // do this when the fl field changes
-    const la = this.state.la; $("la").value = $how(la)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
+    const la = this.state.la; //$("la").value = $how(la)
     const fl = parsefrac(e.target.value)
+    const lc = la*fl; $("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; $("mr").value = $how(mr)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
+    const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ fl })
   }
 
   dFR = e => { // do this when the fr field changes
-    const la = this.state.la; $("la").value = $how(la)
+    const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = parsefrac(e.target.value)
-    const mr = this.state.mr; $("mr").value = $how(mr)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
+    const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ fr })
   }
 
   dMR = e => { // do this when the mr field changes
-    const la = this.state.la; $("la").value = $how(la)
+    const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = par$e(e.target.value)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ mr })
   }
 
   dRT = e => { // do this when the rt field changes
-    const la = this.state.la; $("la").value = $how(la)
+    const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; $("mr").value = $how(mr)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = parsefrac(e.target.value)
     this.setState({ rt })
   }
@@ -186,7 +188,7 @@ class Loan extends React.Component {
         <input id="fl" className="form-control" type="text"
                placeholder="fraction" 
                onChange={this.dFL}/> &nbsp;
-        <font color={GRAY}>{showfrac(this.state.fl)}%</font>
+        <font color={GRAY}>{showfrac(this.state.fl)}</font>
       </div>
       <br></br>
       <label className="control-label" for="fr">
@@ -222,7 +224,7 @@ class Loan extends React.Component {
       ${$how(this.state.mr/DIM*this.state.fr*60)}
       <br></br>
       <br></br>
-      ${$how(this.state.la*(1+this.state.fl))} {/* */}
+      ${$how(this.state.la + this.state.lc)} {/* */}
       fully paid in {/* */}
       {round((this.state.la + this.state.lc)/(this.state.mr/DIM*this.state.fr))}
       {/* */} {/* */}
