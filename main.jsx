@@ -75,12 +75,11 @@ function eir(la, lc, fr, mr, min=0, max=1) {
   if (max>100) { return Infinity }
   const mid = (min+max)/2
   if (abs(min-max)<0.005) { return mid }
-  const vmax = npv(la+lc, fr, mr, max)
-  if (vmax < la) { return eir(la, lc, fr, mr, min, 2*max) }
-  //const vmin = npv(la+lc, fr, mr, min) #SCHDEL
+  const vmin = npv(la+lc, fr, mr, max)
+  if (vmin > la) { return eir(la, lc, fr, mr, min, 2*max) }
   const vmid = npv(la+lc, fr, mr, mid)
-  if (vmid < la) { return eir(la, lc, fr, mr, mid, max) }
-  else           { return eir(la, lc, fr, mr, min, mid) }
+  if (vmid < la) { return eir(la, lc, fr, mr, min, mid) }
+  else           { return eir(la, lc, fr, mr, mid, max) }
 }
 
 // Find the loan cost that yields the given interest rate
@@ -89,6 +88,7 @@ function flc(la, fr, mr, rt) {
                (DIM*log(exp(rt/DIY)))
 }
 
+// #SCHDEL
 // Inverse of above: what x makes GammaCDF(x, A, B) == p
 // For TagTime: hours to set aside so Pr(success) == p is ig(p, pings, gap)
 function ig(p, A, B, min=0, max=8) {
