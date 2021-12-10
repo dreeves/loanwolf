@@ -82,8 +82,8 @@ class Loan extends React.Component {
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dX = e => { // do this when the x field changes
     const x = par$e(e.target.value)
-    const p = this.state.p; $("p").value = showfrac(p)
-    const f = this.state.f; $("f").value = showfrac(f)
+    const p = this.state.p; //$("p").value = showfrac(p)
+    const f = this.state.f; //$("f").value = showfrac(f)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ x })    
@@ -92,7 +92,7 @@ class Loan extends React.Component {
   dP = e => { // do this when the p field changes
     const x = this.state.x; $("x").value = $how(x)
     const p = parsefrac(e.target.value)
-    const f = this.state.f; $("f").value = showfrac(f)
+    const f = this.state.f; //$("f").value = showfrac(f)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ p })
@@ -100,7 +100,7 @@ class Loan extends React.Component {
 
   dF = e => { // do this when the f field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; $("p").value = showfrac(p)
+    const p = this.state.p; //$("p").value = showfrac(p)
     const f = parsefrac(e.target.value)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
@@ -109,8 +109,8 @@ class Loan extends React.Component {
 
   dM = e => { // do this when the m field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; $("p").value = showfrac(p)
-    const f = this.state.f; $("f").value = showfrac(f)
+    const p = this.state.p; //$("p").value = showfrac(p)
+    const f = this.state.f; //$("f").value = showfrac(f)
     const m = par$e(e.target.value)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ m })
@@ -118,8 +118,8 @@ class Loan extends React.Component {
 
   dR = e => { // do this when the r field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; $("p").value = showfrac(p)
-    const f = this.state.f; $("f").value = showfrac(f)
+    const p = this.state.p; //$("p").value = showfrac(p)
+    const f = this.state.f; //$("f").value = showfrac(f)
     const m = this.state.m; $("m").value = $how(m)
     const r = parsefrac(e.target.value)
     this.setState({ r })
@@ -183,6 +183,8 @@ class Loan extends React.Component {
       (TODO).
       <br></br>
       <br></br>
+      Amount repaid in 60 days: 
+      ${$how(this.state.m/DIM*this.state.f*60)}
     </div>
   </div> ) }
 }
