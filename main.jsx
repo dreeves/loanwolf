@@ -3,6 +3,7 @@
  ******************************************************************************/
 
 const exp = Math.exp
+const round = Math.round
 
 const GRAY = "#999999"
 const DIY = 365.25 // days in year
@@ -185,6 +186,13 @@ class Loan extends React.Component {
       <br></br>
       Amount repaid in 60 days: 
       ${$how(this.state.m/DIM*this.state.f*60)}
+      <br></br>
+      <br></br>
+      ${$how(this.state.x*(1+this.state.p))} {/* */}
+      fully paid in {/* */}
+      {round(this.state.x*(1+this.state.p) / (this.state.m/DIM*this.state.f))}
+      {/* */} {/* */}
+      days
     </div>
   </div> ) }
 }
