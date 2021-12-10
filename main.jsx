@@ -74,13 +74,14 @@ function npv(x, fr, mr, rt) {
 function eir(la, lc, fr, mr, min=0, max=1) {
   if (max>100) { return Infinity } // >10,000% interest? give up.
   const mid = (min+max)/2
-  if (abs(min-max)<0.005) { return mid }
+  if (abs(min-max)<0.005)           { return mid }
   if (npv(la+lc, fr, mr, max) > la) { return eir(la, lc, fr, mr, min, 2*max) }
   if (npv(la+lc, fr, mr, mid) < la) { return eir(la, lc, fr, mr, min, mid) }
   else                              { return eir(la, lc, fr, mr, mid, max) }
 }
 
-// Find the loan cost that yields the given interest rate
+// Find the loan cost that yields the given interest rate.
+// Mathematica solved this analytically so this is just pasting that in.
 function flc(la, fr, mr, rt) {
   return -la - (fr*mr*log((DIM*la-DIM*exp(rt/DIY)*la+fr*mr) / (fr*mr))) / 
                (DIM*log(exp(rt/DIY)))
