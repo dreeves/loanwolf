@@ -55,20 +55,22 @@ function $how(x) {
   return isNaN(x) ? '' : Math.round(100*x) / 100
 }
 
-// Net Present Value of principal x plus premium p*x paid in daily installments
-// equal to fraction f of daily revenue, where monthly revenue is m and the
-// yearly discount rate is r.
-// Mathematica: 
-// TimeValue[Annuity[f*m/DIM, x(1+p)/(f*m/DIM)], EffectiveInterest[r/DIY, 0], 0]
-function npv(x, p, f, m, r) {
-  return f*m/DIM * (1-exp(r/DIY)**(-((DIM*(1 + p)*x)/(f*m)))) / (exp(r/DIY)-1)
+// Net Present Value of x dollars paid in daily installments equal to fraction
+// fr of daily revenue, where monthly revenue is mr and the yearly discount rate
+// is rt. Mathematica: 
+// TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
+function npv(x, fr, mr, rt) {
+  return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
 }
 
-// Effective Interest Rate (as a percentage) that makes the above stream of
+// Effective Interest Rate (as a percentage) that makes a stream of payments
+// totaling 
+// a loan amount la plus fraction of the loan fl paid as interest
+the above stream of
 // repayments have the same time-value as the principal of the loan.
 // Mathematica:
-// NSolve[npv[x, p, f, m, r] == x, r, Reals][[1, 1, 2]] * 100
-function eir(x, p, f, m) {
+// NSolve[npv[la + la*fl, fr, mr, rt] == la, rt, Reals][[1, 1, 2]] * 100
+function eir(la, fl, fr, mr) {
   return 23 // TODO
 }
 
