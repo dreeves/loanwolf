@@ -68,41 +68,22 @@ function npv(x, fr, mr, rt) {
 }
 
 // Effective Interest Rate that makes a stream of payments totaling la+lc (loan
-// amount la plus loan cost lc) have the same time-value as la, the principal of
-// the loan. Mathematica:
+// amount + loan cost) have the same time-value as la, the principal of the
+// loan. Mathematica:
 // NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
 function eir(la, lc, fr, mr, min=0, max=1) {
-  if (max>100) { return Infinity }
+  if (max>100) { return Infinity } // >10,000% interest? give up.
   const mid = (min+max)/2
   if (abs(min-max)<0.005) { return mid }
-  const vmin = npv(la+lc, fr, mr, max)
-  if (vmin > la) { return eir(la, lc, fr, mr, min, 2*max) }
-  const vmid = npv(la+lc, fr, mr, mid)
-  if (vmid < la) { return eir(la, lc, fr, mr, min, mid) }
-  else           { return eir(la, lc, fr, mr, mid, max) }
+  if (npv(la+lc, fr, mr, max) > la) { return eir(la, lc, fr, mr, min, 2*max) }
+  if (npv(la+lc, fr, mr, mid) < la) { return eir(la, lc, fr, mr, min, mid) }
+  else                              { return eir(la, lc, fr, mr, mid, max) }
 }
 
 // Find the loan cost that yields the given interest rate
 function flc(la, fr, mr, rt) {
   return -la - (fr*mr*log((DIM*la-DIM*exp(rt/DIY)*la+fr*mr) / (fr*mr))) / 
                (DIM*log(exp(rt/DIY)))
-}
-
-// #SCHDEL
-// Inverse of above: what x makes GammaCDF(x, A, B) == p
-// For TagTime: hours to set aside so Pr(success) == p is ig(p, pings, gap)
-function ig(p, A, B, min=0, max=8) {
-  if (p<0) { p = 0 }
-  if (p>1) { p = 1 }
-  var m = (min+max)/2
-  if (abs(min-max)<1/60) { return m } // accurate to within 1 minute
-  var p2 = GammaCDF(max, A, B)
-  //console.log(`${min} ${max} -> ${GammaCDF(min, A, B)} ${p2}`)
-  if (p2 < p) { return ig(p, A, B, min, 2*max) }
-  var p1 = GammaCDF(min, A, B)
-  var pm = GammaCDF(m, A, B)
-  if (pm<p) { return ig(p, A, B, m, max) }
-  return ig(p, A, B, min, m)
 }
 
 // -----------------------------------------------------------------------------
@@ -236,6 +217,10 @@ class Loan extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
+      Amount repaid per 30 days: 
+      ${$how(this.state.mr/DIM*this.state.fr*30)}
+      <br></br>
+      <br></br>
       Amount repaid per 60 days: 
       ${$how(this.state.mr/DIM*this.state.fr*60)}
       <br></br>

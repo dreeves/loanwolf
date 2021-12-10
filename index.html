@@ -31,6 +31,25 @@ src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <br/><br/>
 <hr>
 <p>
+This is done in Javascript but the equivalent Wolframaic is like so:
+<pre>
+
+(* Net Present Value of x dollars paid in daily installments equal to fraction
+   fr of daily revenue, where monthly revenue is mr and the yearly discount rate
+   is rt. *)
+TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
+
+(* Effective Interest Rate that makes a stream of payments totaling la+lc (loan
+   amount + loan cost) have the same time-value as la, the principal of the
+   loan. *)
+NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
+
+</pre>
+</p>
+
+<br/><br/>
+<hr>
+<p>
 Made for fun by 
 <a href="https://stripe.com" title="fka /dev/payments">Stripe</a>'s 
 bff, 
