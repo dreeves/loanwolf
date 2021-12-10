@@ -114,51 +114,63 @@ class Loan extends React.Component {
   }
 
   dFR = e => { // do this when the fr field changes
-    const x = this.state.x; $("x").value = $how(x)
-    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+    const la = this.state.la; $("la").value = $how(la)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
     const fr = parsefrac(e.target.value)
-    const m = this.state.m; $("m").value = $how(m)
-    const r = this.state.r; $("r").value = showfrac(r)
-    this.setState({ f })
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ fr })
   }
 
-  dM = e => { // do this when the m field changes
-    const x = this.state.x; $("x").value = $how(x)
-    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+  dMR = e => { // do this when the mr field changes
+    const la = this.state.la; $("la").value = $how(la)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const m = par$e(e.target.value)
-    const r = this.state.r; $("r").value = showfrac(r)
-    this.setState({ m })
+    const mr = par$e(e.target.value)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ mr })
   }
 
-  dR = e => { // do this when the r field changes
-    const x = this.state.x; $("x").value = $how(x)
-    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+  dRT = e => { // do this when the rt field changes
+    const la = this.state.la; $("la").value = $how(la)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const m = this.state.m; $("m").value = $how(m)
-    const r = parsefrac(e.target.value)
-    this.setState({ r })
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = parsefrac(e.target.value)
+    this.setState({ rt })
   }
   
   render() { return ( <div>
     <div className="control-group">
-      <label className="control-label" for="x">
+      <label className="control-label" for="la">
         Principal aka loan amount:
       </label>
       <div className="controls">
-        <input id="x" className="form-control" type="text" autofocus
+        <input id="la" className="form-control" type="text" autofocus
                placeholder="dollar value"
-               onChange={this.dX}/> &nbsp;
+               onChange={this.dLA}/> &nbsp;
       </div>
       <br></br>
-      <label className="control-label" for="fp">
-        Premium aka fraction of principal to be paid as interest:
+      <label className="control-label" for="fl">
+        Fraction of principal to be paid as interest:
       </label>
       <div className="controls">
-        <input id="p" className="form-control" type="text"
+        <input id="fl" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dP}/> &nbsp;
-        <font color={GRAY}>{showfrac(this.state.p)}%</font>
+               onChange={this.dFL}/> &nbsp;
+        <font color={GRAY}>{showfrac(this.state.fl)}%</font>
+      </div>
+      <br></br>
+      <label className="control-label" for="lc">
+        Fixed fee:
+      </label>
+      <div className="controls">
+        <input id="f" className="form-control" type="text"
+               placeholder="fraction" 
+               onChange={this.dF}/>
       </div>
       <br></br>
       <label className="control-label" for="f">
@@ -216,6 +228,5 @@ ReactDOM.render(<Loan/>, document.getElementById('root'))
 /******************************************************************************
  *                              STATIC WEBSITE                                *
  ******************************************************************************/
-
 
 // -----------------------------------------------------------------------------
