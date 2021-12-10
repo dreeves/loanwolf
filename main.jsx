@@ -66,6 +66,8 @@ function npv(x, p, f, m, r) {
 
 // Effective Interest Rate (as a percentage) that makes the above stream of
 // repayments have the same time-value as the principal of the loan.
+// Mathematica:
+// NSolve[npv[x, p, f, m, r] == x, r, Reals][[1, 1, 2]] * 100
 function eir(x, p, f, m) {
   return 23 // TODO
 }
