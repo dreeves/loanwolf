@@ -69,7 +69,7 @@ function npv(x, fr, mr, rt) {
 
 // Effective Interest Rate that makes a stream of payments totaling la+lc (loan
 // amount + loan cost) have the same time-value as la, the principal of the
-// loan. Mathematica:
+// loan. Daily payments are fr*mr/DIM. Mathematica:
 // NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
 function eir(la, lc, fr, mr, min=0, max=1) {
   if (max>100) { return Infinity } // >10,000% interest? give up.

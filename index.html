@@ -54,7 +54,7 @@ npv[x_, fr_, mr_, rt_] :=
 
 (* Effective Interest Rate that makes a stream of payments totaling la+lc (loan
    amount + loan cost) have the same time-value as la, the principal of the
-   loan. *)
+   loan. Daily payments are fr*mr/DIM. *)
 eir[la_, lc_, fr_, mr_] :=
   NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1,1,2]]
 
