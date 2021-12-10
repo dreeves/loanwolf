@@ -72,50 +72,62 @@ function eir(x, p, f, m) {
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
-    x: 0, // principal aka loan amount
-    p: 0, // premium aka fraction of principal to be paid as interest
-    f: 0, // fraction of daily revenue that goes to paying back the loan
-    m: 0, // monthly revenue
-    r: 0, // yearly discount rate as a fraction
+    x: 0, // (DOL)  principal aka loan amount
+    p: 0, // (FRAC) premium aka fraction of principal to be paid as interest
+    f: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
+    m: 0, // (DOL)  monthly revenue
+    r: 0, // (FRAC) yearly discount rate as a fraction
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dx = e => { // do this when the x field changes
-    const x = par$e
-    const pie = parsefrac(e.target.value)
-    const fmv = this.state.fmv;  $("fmv").value = $how(fmv)
-    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
-    const get = fmv * pie;       $("get").value = $how(get)
-    this.setState({ pie, pay, get })
+    const x = par$e(e.target.value)
+    const p = this.state.p; $("p").value = showfrac(p)
+    const f = this.state.f; $("f").value = showfrac(f)
+    const m = this.state.m; $("m").value = $how(m)
+    const r = this.state.r; $("r").value = showfrac(r)
+    this.setState({ x })    
   }
 
-  dFmv = e => { // do this when the fmv field changes
-    const pie = this.state.pie
-    const fmv = par$e(e.target.value) // contents of the actual field
-    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
-    const get = fmv * pie;       $("get").value = $how(get)
-    this.setState({ fmv, pay, get })
+  dp = e => { // do this when the p field changes
+    const x = this.state.x; $("x").value = $how(x)
+    const p = parsefrac(e.target.value)
+    const f = this.state.f; $("f").value = showfrac(f)
+    const m = this.state.m; $("m").value = $how(m)
+    const r = this.state.r; $("r").value = showfrac(r)
+    this.setState({ p })
   }
-  
-  dPay = e => { // do this when the pay field changes
-    const pie = this.state.pie
-    const pay = par$e(e.target.value) // contents of the actual field
-    const fmv = pay / (1 - pie); $("fmv").value = $how(fmv)
-    const get = fmv * pie;       $("get").value = $how(get)
-    this.setState({ fmv, pay, get })
+
+  df = e => { // do this when the f field changes
+    const x = this.state.x; $("x").value = $how(x)
+    const p = this.state.p; $("p").value = showfrac(p)
+    const f = parsefrac(e.target.value)
+    const m = this.state.m; $("m").value = $how(m)
+    const r = this.state.r; $("r").value = showfrac(r)
+    this.setState({ f })
   }
-  
-  dGet = e => { // do this when the get field changes
-    const pie = this.state.pie
-    const get = par$e(e.target.value) // contents of the actual field
-    const fmv = get / pie;       $("fmv").value = $how(fmv)
-    const pay = fmv * (1 - pie); $("pay").value = $how(pay)
-    this.setState({ fmv, pay, get })
+
+  dm = e => { // do this when the m field changes
+    const x = this.state.x; $("x").value = $how(x)
+    const p = this.state.p; $("p").value = showfrac(p)
+    const f = this.state.f; $("f").value = showfrac(f)
+    const m = par$e(e.target.value)
+    const r = this.state.r; $("r").value = showfrac(r)
+    this.setState({ m })
+  }
+
+  dr = e => { // do this when the r field changes
+    const x = this.state.x; $("x").value = $how(x)
+    const p = this.state.p; $("p").value = showfrac(p)
+    const f = this.state.f; $("f").value = showfrac(f)
+    const m = this.state.m; $("m").value = $how(m)
+    const r = parsefrac(e.target.value)
+    this.setState({ r })
   }
   
   render() { return ( <div>
     <div className="control-group">
-      <label className="control-label" for="pie">
+      <label className="control-label" for="x">
         Fraction of the thing/decision that's yours:
       </label>
       <div className="controls">
