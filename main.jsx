@@ -98,7 +98,7 @@ class Loan extends React.Component {
     this.setState({ p })
   }
 
-  df = e => { // do this when the f field changes
+  dF = e => { // do this when the f field changes
     const x = this.state.x; $("x").value = $how(x)
     const p = this.state.p; $("p").value = showfrac(p)
     const f = parsefrac(e.target.value)
@@ -107,7 +107,7 @@ class Loan extends React.Component {
     this.setState({ f })
   }
 
-  dm = e => { // do this when the m field changes
+  dM = e => { // do this when the m field changes
     const x = this.state.x; $("x").value = $how(x)
     const p = this.state.p; $("p").value = showfrac(p)
     const f = this.state.f; $("f").value = showfrac(f)
@@ -116,7 +116,7 @@ class Loan extends React.Component {
     this.setState({ m })
   }
 
-  dr = e => { // do this when the r field changes
+  dR = e => { // do this when the r field changes
     const x = this.state.x; $("x").value = $how(x)
     const p = this.state.p; $("p").value = showfrac(p)
     const f = this.state.f; $("f").value = showfrac(f)
@@ -133,7 +133,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="x" className="form-control" type="text" autofocus
                placeholder="dollar value"
-               onChange={this.dx}/> &nbsp;
+               onChange={this.dX}/> &nbsp;
       </div>
       <br></br>
       <label className="control-label" for="p">
@@ -142,7 +142,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="p" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dp}/> &nbsp;
+               onChange={this.dP}/> &nbsp;
         <font color={GRAY}>{showfrac(this.state.p)}%</font>
       </div>
       <br></br>
@@ -152,16 +152,16 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="f" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.df}/>
+               onChange={this.dF}/>
       </div>
       <br></br>
       <label className="control-label" for="m">
         Monthly revenue:
       </label>
       <div className="controls">
-        <input id="get" className="form-control" type="text"
+        <input id="m" className="form-control" type="text"
                placeholder="dollar value" 
-               onChange={this.dm}/>
+               onChange={this.dM}/>
       </div>
       <br></br>
       <label className="control-label" for="r">
@@ -170,7 +170,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="r" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dr}/>
+               onChange={this.dR}/>
       </div>
     </div>
     <div>
