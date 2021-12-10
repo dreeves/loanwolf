@@ -128,27 +128,22 @@ class Loan extends React.Component {
   render() { return ( <div>
     <div className="control-group">
       <label className="control-label" for="x">
-        Fraction of the thing/decision that's yours:
+        Principal aka loan amount:
       </label>
       <div className="controls">
-        <input id="pie" className="form-control" type="text" autofocus
-               placeholder="a number from 0 to 1"
-               onChange={this.dPie}/> &nbsp;
-        <font color={GRAY}>{`${showfrac(1-this.state.pie)}/` +
-                            `${showfrac(this.state.pie)} them/you`}</font>
+        <input id="x" className="form-control" type="text" autofocus
+               placeholder="dollar value"
+               onChange={this.dx}/> &nbsp;
       </div>
-      <br></br><hr></hr><br></br>
-      <b>Your Bid:</b> {/* */}
-        <font color={GRAY}>(any of these imply the other two)</font>
       <br></br>
-      <br></br>
-      <label className="control-label" for="fmv">
-        Fair Market Value (FMV):
+      <label className="control-label" for="p">
+        Premium aka fraction of principal to be paid as interest:
       </label>
       <div className="controls">
-        <input id="fmv" className="form-control" type="text"
-               placeholder="dollar value" 
-               onChange={this.dFmv}/>
+        <input id="p" className="form-control" type="text"
+               placeholder="fraction" 
+               onChange={this.dp}/>
+        <font color={GRAY}>{showfrac(this.state.p)}</font>
       </div>
       <br></br>
       <label className="control-label" for="pay">
