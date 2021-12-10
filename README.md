@@ -3,6 +3,8 @@ decision auctions (aka odd yootling).
 
 TODO: port kibotzer.com/bidder to this?
 
+TODO: collapsible "what the flargity fork?" section with the stuff below in index.html
+
 ## Spec for making this multi-user-aware
 
 Starting with the M'est of MVPs: if there are exactly two people viewing the page, it enforces that the shares sum to 1 and has a button to lock in your bid and when both people press it, it reveals the bids to both parties. That's kind of how our /bid command in Slack works.
