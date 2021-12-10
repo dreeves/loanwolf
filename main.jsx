@@ -13,6 +13,7 @@ const DIM = DIY/12 // days in month
 
 const exp   = Math.exp
 const log   = Math.log
+const abs   = Math.abs
 const round = Math.round
 
 function $(id) { return document.getElementById(id) } // convenience function
@@ -70,14 +71,18 @@ function npv(x, fr, mr, rt) {
 // amount la plus loan cost lc) have the same time-value as la, the principal of
 // the loan. Mathematica:
 // NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
-function eir(la, lc, fr, mr) {
+function eir(la, lc, fr, mr, min=0, max=1) {
+  let m = (min+max)/2
+  if (abs(min-max)<0.005) { return m }
+  let x2 = npv(la+lc, fr, mr, max)
+  if (x2 < la) { return eir(la, lc, fr, mr, min, 2*max)}
   return .23 // TODO
 }
 
 // Find the loan cost that yields the given interest rate
 function flc(la, fr, mr, rt) {
-  return -la - (fr*mr*log((DIM*la-DIM*E^(rt/DIY)*la+fr*mr) / (fr*mr)) / 
-               (DIM*Log[E^(rt/DIY)])
+  return -la - (fr*mr*log((DIM*la-DIM*exp(rt/DIY)*la+fr*mr) / (fr*mr))) / 
+               (DIM*log(exp(rt/DIY)))
 }
 
 // Inverse of above: what x makes GammaCDF(x, A, B) == p
@@ -160,12 +165,12 @@ class Loan extends React.Component {
 
   dRT = e => { // do this when the rt field changes
     const rt = parsefrac(e.target.value)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const la = this.state.la; //$("la").value = $how(la)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
-    const la = npv(, fr, mr, rt); //$("la").value = $how(la)
-    this.setState({ rt, la })
+    const lc = flc(la, fr, mr, rt); $("lc").value = $how(lc)
+    const fl = lc/la; $("fl").value = showfrac(fl)
+    this.setState({ rt, lc, fl })
   }
   
   render() { return ( <div>
