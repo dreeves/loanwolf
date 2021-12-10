@@ -34,15 +34,20 @@ src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 This is done in Javascript but the equivalent Wolframaic is like so:
 <pre>
 
+DIY = Rationalize[365.25]; (* days in year *)
+DIM = DIY/12; (* days in month *)
+
 (* Net Present Value of x dollars paid in daily installments equal to fraction
    fr of daily revenue, where monthly revenue is mr and the yearly discount rate
    is rt. *)
-TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
+npv[x_, fr_, mr_, rt_] :=
+  TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
 
 (* Effective Interest Rate that makes a stream of payments totaling la+lc (loan
    amount + loan cost) have the same time-value as la, the principal of the
    loan. *)
-NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
+eir[la_, lc_, fr_, mr_] :=
+  NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1,1,2]]
 
 </pre>
 </p>
