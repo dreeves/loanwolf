@@ -12,6 +12,7 @@ const DIM = DIY/12 // days in month
  ******************************************************************************/
 
 const exp   = Math.exp
+const log   = Math.log
 const round = Math.round
 
 function $(id) { return document.getElementById(id) } // convenience function
@@ -73,6 +74,12 @@ function eir(la, lc, fr, mr) {
   return .23 // TODO
 }
 
+// Find the loan cost that yields the given interest rate
+function flc(la, fr, mr, rt) {
+  return -la - (fr*mr*log((DIM*la-DIM*E^(rt/DIY)*la+fr*mr) / (fr*mr)) / 
+               (DIM*Log[E^(rt/DIY)])
+}
+
 // Inverse of above: what x makes GammaCDF(x, A, B) == p
 // For TagTime: hours to set aside so Pr(success) == p is ig(p, pings, gap)
 function ig(p, A, B, min=0, max=8) {
@@ -108,7 +115,7 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ la })
+    this.setState({ la, fl, rt })
   }
 
   dLC = e => { // do this when the lc field changes
@@ -118,7 +125,7 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ lc })
+    this.setState({ lc, fl, rt })
   }
 
   dFL = e => { // do this when the fl field changes
@@ -127,8 +134,8 @@ class Loan extends React.Component {
     const lc = la*fl; $("lc").value = $how(lc)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ fl })
+    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+    this.setState({ fl, lc, rt })
   }
 
   dFR = e => { // do this when the fr field changes
@@ -137,8 +144,8 @@ class Loan extends React.Component {
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = parsefrac(e.target.value)
     const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ fr })
+    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+    this.setState({ fr, rt })
   }
 
   dMR = e => { // do this when the mr field changes
@@ -147,18 +154,18 @@ class Loan extends React.Component {
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = par$e(e.target.value)
-    const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ mr })
+    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+    this.setState({ mr, rt })
   }
 
   dRT = e => { // do this when the rt field changes
-    const la = this.state.la; //$("la").value = $how(la)
+    const rt = parsefrac(e.target.value)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = parsefrac(e.target.value)
-    this.setState({ rt })
+    const la = npv(, fr, mr, rt); //$("la").value = $how(la)
+    this.setState({ rt, la })
   }
   
   render() { return ( <div>
