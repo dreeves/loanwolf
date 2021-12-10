@@ -80,7 +80,7 @@ class Loan extends React.Component {
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  dx = e => { // do this when the x field changes
+  dX = e => { // do this when the x field changes
     const x = par$e(e.target.value)
     const p = this.state.p; $("p").value = showfrac(p)
     const f = this.state.f; $("f").value = showfrac(f)
@@ -89,7 +89,7 @@ class Loan extends React.Component {
     this.setState({ x })    
   }
 
-  dp = e => { // do this when the p field changes
+  dP = e => { // do this when the p field changes
     const x = this.state.x; $("x").value = $how(x)
     const p = parsefrac(e.target.value)
     const f = this.state.f; $("f").value = showfrac(f)
@@ -142,49 +142,47 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="p" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dp}/>
-        <font color={GRAY}>{showfrac(this.state.p)}</font>
+               onChange={this.dp}/> &nbsp;
+        <font color={GRAY}>{showfrac(this.state.p)}%</font>
       </div>
       <br></br>
-      <label className="control-label" for="pay">
-        Most you pay if you win:
+      <label className="control-label" for="f">
+        Fraction of daily revenue that goes to paying back the loan:
       </label>
       <div className="controls">
-        <input id="pay" className="form-control" type="text"
-               placeholder="dollar value" 
-               onChange={this.dPay}/>
+        <input id="f" className="form-control" type="text"
+               placeholder="fraction" 
+               onChange={this.df}/>
       </div>
       <br></br>
-      <label className="control-label" for="get">
-        What you get paid if you lose:
+      <label className="control-label" for="m">
+        Monthly revenue:
       </label>
       <div className="controls">
         <input id="get" className="form-control" type="text"
                placeholder="dollar value" 
-               onChange={this.dGet}/>
+               onChange={this.dm}/>
+      </div>
+      <br></br>
+      <label className="control-label" for="r">
+        Yearly discount rate aka effective annualized interest:
+      </label>
+      <div className="controls">
+        <input id="r" className="form-control" type="text"
+               placeholder="fraction" 
+               onChange={this.dr}/>
       </div>
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      <b>If your FMV of ${$how(this.state.fmv)} is higher:</b>
+      <b>TODO principal is ${$how(this.state.x)}</b>
       <br></br>
       <br></br>
-      You'll pay up to 
-      ${$how(this.state.pay)} {/* */}
-      (for the {showfrac(1-this.state.pie)}% that's not yours).
+      TODO 
+      ${$how(this.state.f)} {/* */}
+      (TODO).
       <br></br>
       <br></br>
-      <br></br>
-      <b>If <i>their</i> FMV is higher:</b>
-      <br></br>
-      <br></br>
-      You'll get paid 
-      ${$how(this.state.get)} {/* */}
-      (for the {showfrac(this.state.pie)}% that's yours).
-      <br></br>
-      <pre>
-        iou[{ymd()}, {$how(this.state.get)}, them, you, "decision auction"]
-      </pre>      
     </div>
   </div> ) }
 }
