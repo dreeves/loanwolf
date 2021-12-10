@@ -60,20 +60,28 @@ function $how(x) {
 // Mathematica: 
 // TimeValue[Annuity[f*m/DIM, x(1+p)/(f*m/DIM)], EffectiveInterest[r/DIY, 0], 0]
 function npv(x, p, f, m, r) {
-  return -(((1-(exp(r/DIY))^(-((DIM*(1 + p)*x)/(f*m))))*f*m)/(DIM - DIM*E^(r/DIY)))
+  return f*m/DIM * (1-exp(r/DIY)**(-((DIM*(1 + p)*x)/(f*m)))) / (exp(r/DIY)-1)
+}
+
+// Effective Interest Rate (as a percentage) that makes the above stream of
+// repayments have the same time-value as the principal of the loan.
+function eir(x, p, f, m) {
+  return 23 // TODO
 }
 
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
-    pie: 0.5, // fraction of the decision that's yours
-    fmv: 0,   // fair market value: value of the whole decision
-    pay: 0,   // how much you'll pay (at most) if you win
-    get: 0,   // how much you'll get paid if you lose
+    x: 0, // principal aka loan amount
+    p: 0, // premium aka fraction of principal to be paid as interest
+    f: 0, // fraction of daily revenue that goes to paying back the loan
+    m: 0, // monthly revenue
+    r: 0, // yearly discount rate as a fraction
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
-  dPie = e => { // do this when the pie field changes
+  dx = e => { // do this when the x field changes
+    const x = par$e
     const pie = parsefrac(e.target.value)
     const fmv = this.state.fmv;  $("fmv").value = $how(fmv)
     const pay = fmv * (1 - pie); $("pay").value = $how(pay)
