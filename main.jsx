@@ -71,12 +71,28 @@ function eir(la, fl, fr, mr) {
   return 23 // TODO
 }
 
+// Inverse of above: what x makes GammaCDF(x, A, B) == p
+// For TagTime: hours to set aside so Pr(success) == p is ig(p, pings, gap)
+function ig(p, A, B, min=0, max=8) {
+  if (p<0) { p = 0 }
+  if (p>1) { p = 1 }
+  var m = (min+max)/2
+  if (abs(min-max)<1/60) { return m } // accurate to within 1 minute
+  var p2 = GammaCDF(max, A, B)
+  //console.log(`${min} ${max} -> ${GammaCDF(min, A, B)} ${p2}`)
+  if (p2 < p) { return ig(p, A, B, min, 2*max) }
+  var p1 = GammaCDF(min, A, B)
+  var pm = GammaCDF(m, A, B)
+  if (pm<p) { return ig(p, A, B, m, max) }
+  return ig(p, A, B, min, m)
+}
+
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
-    la: 68500, // (DOL)  principal aka loan amount
-    fl: 0, // (FRAC) fraction of principal to be paid as interest
+    la: 0, // (DOL)  principal aka loan amount
     lc: 0, // (DOL)  premium aka fixed fee for the loan aka loan cost
+    fl: 0, // (FRAC) fraction of principal to be paid as interest
     fr: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
     mr: 0, // (DOL)  monthly revenue
     rt: 0, // (FRAC) yearly discount rate as a fraction
@@ -85,38 +101,38 @@ class Loan extends React.Component {
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dLA = e => { // do this when the la field changes
     const la = par$e(e.target.value)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; $("mr").value = $how(mr)
     const rt = this.state.rt; $("rt").value = showfrac(rt)
     this.setState({ la })
   }
 
-  dFL = e => { // do this when the fl field changes
-    const la = this.state.la; $("la").value = $how(la)
-    const fl = parsefrac(e.target.value)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; $("mr").value = $how(mr)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
-    this.setState({ fl })
-  }
-
   dLC = e => { // do this when the lc field changes
     const la = this.state.la; $("la").value = $how(la)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const lc = par$e(e.target.value)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; $("mr").value = $how(mr)
     const rt = this.state.rt; $("rt").value = showfrac(rt)
     this.setState({ lc })
   }
 
+  dFL = e => { // do this when the fl field changes
+    const la = this.state.la; $("la").value = $how(la)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = parsefrac(e.target.value)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
+    const mr = this.state.mr; $("mr").value = $how(mr)
+    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    this.setState({ fl })
+  }
+
   dFR = e => { // do this when the fr field changes
     const la = this.state.la; $("la").value = $how(la)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = parsefrac(e.target.value)
     const mr = this.state.mr; $("mr").value = $how(mr)
     const rt = this.state.rt; $("rt").value = showfrac(rt)
@@ -125,8 +141,8 @@ class Loan extends React.Component {
 
   dMR = e => { // do this when the mr field changes
     const la = this.state.la; $("la").value = $how(la)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = par$e(e.target.value)
     const rt = this.state.rt; $("rt").value = showfrac(rt)
@@ -135,8 +151,8 @@ class Loan extends React.Component {
 
   dRT = e => { // do this when the rt field changes
     const la = this.state.la; $("la").value = $how(la)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; $("mr").value = $how(mr)
     const rt = parsefrac(e.target.value)
@@ -154,6 +170,15 @@ class Loan extends React.Component {
                onChange={this.dLA}/> &nbsp;
       </div>
       <br></br>
+      <label className="control-label" for="lc">
+        Fixed fee aka interest aka loan cost:
+      </label>
+      <div className="controls">
+        <input id="lc" className="form-control" type="text"
+               placeholder="dollar amount" 
+               onChange={this.dLC}/>
+      </div>
+      <br></br>
       <label className="control-label" for="fl">
         Fraction of principal to be paid as interest:
       </label>
@@ -164,61 +189,46 @@ class Loan extends React.Component {
         <font color={GRAY}>{showfrac(this.state.fl)}%</font>
       </div>
       <br></br>
-      <label className="control-label" for="lc">
-        Fixed fee:
-      </label>
-      <div className="controls">
-        <input id="f" className="form-control" type="text"
-               placeholder="fraction" 
-               onChange={this.dF}/>
-      </div>
-      <br></br>
-      <label className="control-label" for="f">
+      <label className="control-label" for="fr">
         Fraction of daily revenue that goes to paying back the loan:
       </label>
       <div className="controls">
-        <input id="f" className="form-control" type="text"
+        <input id="fr" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dF}/>
+               onChange={this.dFR}/>
       </div>
       <br></br>
-      <label className="control-label" for="m">
+      <label className="control-label" for="mr">
         Monthly revenue:
       </label>
       <div className="controls">
-        <input id="m" className="form-control" type="text"
+        <input id="mr" className="form-control" type="text"
                placeholder="dollar value" 
-               onChange={this.dM}/>
+               onChange={this.dMR}/>
       </div>
       <br></br>
-      <label className="control-label" for="r">
+      <label className="control-label" for="rt">
         Yearly discount rate aka effective annualized interest:
       </label>
       <div className="controls">
-        <input id="r" className="form-control" type="text"
+        <input id="rt" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dR}/>
+               onChange={this.dRT}/>
       </div>
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      <b>TODO principal is ${$how(this.state.x)}</b>
+      Amount repaid per 60 days: 
+      ${$how(this.state.mr/DIM*this.state.fr*60)}
       <br></br>
       <br></br>
-      TODO 
-      ${$how(this.state.f)} {/* */}
-      (TODO).
-      <br></br>
-      <br></br>
-      Amount repaid in 60 days: 
-      ${$how(this.state.m/DIM*this.state.f*60)}
-      <br></br>
-      <br></br>
-      ${$how(this.state.x*(1+this.state.p))} {/* */}
+      ${$how(this.state.la*(1+this.state.fl))} {/* */}
       fully paid in {/* */}
-      {round(this.state.x*(1+this.state.p) / (this.state.m/DIM*this.state.f))}
+      {round((this.state.la + this.state.lc)/(this.state.mr/DIM*this.state.fr))}
       {/* */} {/* */}
       days
+      <br></br>
+      <br></br>
     </div>
   </div> ) }
 }
