@@ -64,10 +64,10 @@ function npv(x, fr, mr, rt) {
 }
 
 // Effective Interest Rate (as a percentage) that makes a stream of payments
-// totaling la+la*fl (loan amount la plus fraction fl paid as interest) have the
-// same time-value as the principal of the loan. Mathematica:
-// NSolve[npv[la + la*fl, fr, mr, rt] == la, rt, Reals][[1, 1, 2]] * 100
-function eir(la, fl, fr, mr) {
+// totaling la+lc (loan amount la plus loan cost lc) have the same time-value as
+// la, the principal of the loan. Mathematica:
+// NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]] * 100
+function eir(la, lc, fr, mr) {
   return 23 // TODO
 }
 
@@ -102,10 +102,10 @@ class Loan extends React.Component {
   dLA = e => { // do this when the la field changes
     const la = par$e(e.target.value)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; $("mr").value = $how(mr)
-    const rt = this.state.rt; $("rt").value = showfrac(rt)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
+    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
     this.setState({ la })
   }
 
