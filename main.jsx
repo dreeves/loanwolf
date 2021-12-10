@@ -73,36 +73,37 @@ function eir(x, p, f, m) {
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
-    x: 0, // (DOL)  principal aka loan amount
-    p: 0, // (FRAC) premium aka fraction of principal to be paid as interest
-    f: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
-    m: 0, // (DOL)  monthly revenue
-    r: 0, // (FRAC) yearly discount rate as a fraction
+    x: 68500, // (DOL)  principal aka loan amount
+    fp: 0, // (FRAC) fraction of principal to be paid as interest
+    p: 0,  // (DOL)  premium aka fixed fee for the loan
+    fr: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
+    m: 0,  // (DOL)  monthly revenue
+    r: 0,  // (FRAC) yearly discount rate as a fraction
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dX = e => { // do this when the x field changes
     const x = par$e(e.target.value)
-    const p = this.state.p; //$("p").value = showfrac(p)
-    const f = this.state.f; //$("f").value = showfrac(f)
+    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ x })    
   }
 
-  dP = e => { // do this when the p field changes
+  dFP = e => { // do this when the p field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = parsefrac(e.target.value)
-    const f = this.state.f; //$("f").value = showfrac(f)
+    const fp = parsefrac(e.target.value)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ p })
   }
 
-  dF = e => { // do this when the f field changes
+  dFR = e => { // do this when the f field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; //$("p").value = showfrac(p)
-    const f = parsefrac(e.target.value)
+    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+    const fr = parsefrac(e.target.value)
     const m = this.state.m; $("m").value = $how(m)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ f })
@@ -110,8 +111,8 @@ class Loan extends React.Component {
 
   dM = e => { // do this when the m field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; //$("p").value = showfrac(p)
-    const f = this.state.f; //$("f").value = showfrac(f)
+    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const m = par$e(e.target.value)
     const r = this.state.r; $("r").value = showfrac(r)
     this.setState({ m })
@@ -119,8 +120,8 @@ class Loan extends React.Component {
 
   dR = e => { // do this when the r field changes
     const x = this.state.x; $("x").value = $how(x)
-    const p = this.state.p; //$("p").value = showfrac(p)
-    const f = this.state.f; //$("f").value = showfrac(f)
+    const fp = this.state.fp; //$("fp").value = showfrac(fp)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const m = this.state.m; $("m").value = $how(m)
     const r = parsefrac(e.target.value)
     this.setState({ r })
@@ -137,7 +138,7 @@ class Loan extends React.Component {
                onChange={this.dX}/> &nbsp;
       </div>
       <br></br>
-      <label className="control-label" for="p">
+      <label className="control-label" for="fp">
         Premium aka fraction of principal to be paid as interest:
       </label>
       <div className="controls">
@@ -201,11 +202,6 @@ ReactDOM.render(<Loan/>, document.getElementById('root'))
 
 /******************************************************************************
  *                              STATIC WEBSITE                                *
- ******************************************************************************/
-
-
-/******************************************************************************
- *                      STUFF WE'RE NOT CURRENTLY USING                       *
  ******************************************************************************/
 
 
