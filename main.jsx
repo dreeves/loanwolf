@@ -66,14 +66,18 @@ function $how(x) {
   return isNaN(x) ? '' : Math.round(100*x) / 100
 }
 
+function showdays(x) {
+  return x==='' ? '?' : round(x)
+}
+
 // #SCHDEL
 // Net Present Value of x dollars paid in daily installments equal to fraction
 // fr of daily revenue, where monthly revenue is mr and the yearly discount rate
 // is rt. Mathematica: 
 // TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
-function npvold(x, fr, mr, rt) {
-  return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
-}
+//function npvold(x, fr, mr, rt) {
+//  return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
+//}
 
 // Net Present Value of x dollars paid in daily installments of d dollars, with
 // yearly discount rate r. Mathematica: 
@@ -116,9 +120,8 @@ class Loan extends React.Component {
     freq: 60, // (DAYS) number of days for {minp}
   } }
   
-  dai() {
-    return this.state.mr/DIM*this.state.fr
-  }
+  // Daily repayment: daily revenue times fraction thereof to apply as payment
+  dai() { return this.state.mr/DIM*this.state.fr }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dLA = e => { // do this when the la field changes
@@ -270,7 +273,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="freq" className="form-control" type="text"
                placeholder="number of days" 
-               //value="60"
+               value={this.state.freq}
                onChange={this.dFreq}/>
         {this.state.freq === 1 ? " day" : " days"}
       </div>
@@ -286,20 +289,20 @@ class Loan extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      Amount repaid per {this.state.freq} days: 
+      Amount repaid per {showdays(this.state.freq)} days: 
       ${$how(this.dai()*this.state.freq)}
       <br></br>
       <br></br>
       ${$how(this.state.la+this.state.lc)} {/* */}
       fully paid in {/* */}
-      {splur(round((this.state.la+this.state.lc)/this.dai()), "day")}
+      {splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}
       <br></br>
       <br></br>
     </div>
   </div> ) }
 }
 
-ReactDOM.render(<Loan/>, document.getElementById('root'))
+ReactDOM.render(<Loan/>, $('root'))
 
 /******************************************************************************
  *                              STATIC WEBSITE                                *
