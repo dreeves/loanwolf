@@ -18,6 +18,14 @@ const round = Math.round
 
 function $(id) { return document.getElementById(id) } // convenience function
 
+// Singular or Plural: Pluralize the given noun properly, if n is not 1. 
+// Provide the plural version if irregular.
+// Eg: splur(3, "boy") -> "3 boys", splur(3, "man", "men") -> "3 men"
+function splur(n, noun, nounp='') {
+  if (nounp === '') { nounp = noun+'s' }
+  return n.toString()+' '+(n === 1 ? noun : nounp)
+}
+
 // Return the current date like "2021.06.15"
 function ymd() {
   const o = new Date()
@@ -179,7 +187,7 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     //const mr = this.state.mr; //$("mr").value = $how(mr)
     //const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ minp, mr, rt })
+    this.setState({ minp })
   }
 
   dFreq = e => { // do this when the freq field changes
@@ -191,7 +199,7 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     //const mr = this.state.mr; //$("mr").value = $how(mr)
     //const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ freq, mr, rt })
+    this.setState({ freq })
   }
 
   render() { return ( <div>
@@ -258,7 +266,8 @@ class Loan extends React.Component {
         <input id="freq" className="form-control" type="text"
                placeholder="number of days" 
                //value="60"
-               onChange={this.dFreq}/> days
+               onChange={this.dFreq}/> {/* */}
+        {this.state.freq === 1 "day")}
       </div>
       <br></br>
       <label className="control-label" for="rt">
@@ -272,12 +281,8 @@ class Loan extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      Amount repaid per 30 days: 
+      Amount repaid per {this.state.freq} days: 
       ${$how(this.state.mr/DIM*this.state.fr*30)}
-      <br></br>
-      <br></br>
-      Amount repaid per 60 days: 
-      ${$how(this.state.mr/DIM*this.state.fr*60)}
       <br></br>
       <br></br>
       ${$how(this.state.la + this.state.lc)} {/* */}
