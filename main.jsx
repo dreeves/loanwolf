@@ -297,6 +297,18 @@ class Loan extends React.Component {
   </div> ) }
 }
 
+/*
+Say you're a business with 
+${$how(this.state.mr} 
+monthly revenue.
+(Adjust these numbers above!)
+You're offered a loan of 
+${$how(this.state.la}.
+For interest you'll pay a single fixed fee of
+${$how(this.state)}
+to be paid back with $fc of your revenue every day 
+*/
+
 ReactDOM.render(<Loan/>, $('root'))
 
 /******************************************************************************
