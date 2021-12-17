@@ -304,8 +304,11 @@ monthly revenue.
 (Adjust these numbers above!)
 You're offered a loan of 
 ${$how(this.state.la}.
-For interest you'll pay a single fixed fee of
-${$how(this.state)}
+As interest on the loan, you'll pay a single fixed fee of
+${$how(this.state.lc)}.
+The principal plus the interest, totaling 
+${$how(this.state.la+this.state.lc)}, you'll pay in daily payments of 
+{showfrac(this.state.)}
 to be paid back with $fc of your revenue every day 
 */
 
