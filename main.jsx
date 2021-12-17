@@ -72,7 +72,7 @@ function npvold(x, fr, mr, rt) {
 // yearly discount rate r. Mathematica: 
 // TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
 function npv(x, d, r) {
-  return -d * (exp(-x*r/DIY/d) - 1) / (exp(r/DIY) - 1)
+  return -d * (exp(-x/d*r/DIY) - 1) / (exp(r/DIY) - 1)
 }
 
 // Effective Interest Rate that makes a stream of payments totaling la+lc (loan
@@ -230,7 +230,8 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="fr" className="form-control" type="text"
                placeholder="fraction" 
-               onChange={this.dFR}/>
+               onChange={this.dFR}/> &nbsp;
+        <font color={GRAY}>{showfrac(this.state.fr)}</font>
       </div>
       <br></br>
       <label className="control-label" for="mr">
