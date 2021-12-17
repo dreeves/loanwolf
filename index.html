@@ -50,19 +50,11 @@ DIM = DIY/12; (* days in month *)
    yearly discount rate r. I.e., -d*(exp(-x/d*r/DIY)-1)/(exp(r/DIY)-1) *)
 npv[x_, d_, r_] := TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
 
-
-// TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
-function npv(x, d, r) {
-  
-(* Net Present Value of x dollars paid in daily installments equal to fraction
-   fr of daily revenue, where monthly revenue is mr and the yearly discount rate
-   is rt. *)
-npv[x_, d_, r_] :=
-  TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
-
 (* Effective Interest Rate that makes a stream of payments totaling la+lc (loan
    amount + loan cost) have the same time-value as la, the principal of the
-   loan. Daily payments are fr*mr/DIM. *)
+   loan. Daily payments are fr*mr/DIM, namely the monthly revenue mr times the
+   fraction of daily revenue applied to repaying the loan, divided by the number
+   of days in a month. *)
 eir[la_, lc_, fr_, mr_] := 
   NSolve[npv[la+lc, fr*mr/DIM, r] == la, r, Reals][[1,1,2]]
 
