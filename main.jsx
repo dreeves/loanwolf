@@ -305,7 +305,25 @@ ${$how(this.dai())}/day.
 That will get the whole 
 ${$how(this.state.la)} + 
 ${$how(this.state.lc)} paid back in {/* */}
-{splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}.
+{splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}. {/* */}
+<font color="#FF0000">
+{this.state.minp > this.pp() ? 
+`But wait! The loan has a minimum repayment rate of \
+${$how(this.state.minp)} \
+every \
+${splur(showdays(this.state.freq), "day")} \
+and your revenue of \
+${$how(this.state.mr)} \
+isn't enough for the \
+${showfrac(this.state.fr)} \
+of revenue to hit that. \
+So for all this to be true, bump up your revenue until the red text goes away. \
+Then the rest of this will be true!` : ''
+}
+</font> {/* */}
+This is equivalent to a traditional loan with an annual interest rate of {/* */}
+{showfrac(this.state.rt)}
+and no prepayment penalty or any other shenanigans.
       <br></br>
       <br></br>
     </div>
@@ -324,7 +342,9 @@ So for all this to be true, bump up your revenue until the red text goes away. \
 Then the rest of this will be true!`
 }
 </font>
-This is equivalent to a traditional loan 
+This is equivalent to a traditional loan with an annual interest rate of
+{showfrac(this.state.rt)}
+and no prepayment penalty or any other shenanigans.
 */
 
 ReactDOM.render(<Loan/>, $('root'))
