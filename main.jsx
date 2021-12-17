@@ -123,6 +123,9 @@ class Loan extends React.Component {
   // Daily repayment: daily revenue times fraction thereof to apply as payment
   dai() { return this.state.mr/DIM*this.state.fr }
   
+  // Dollar amount paid per freq days
+  pp() { return this.dai()*this.state.freq }
+  
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dLA = e => { // do this when the la field changes
     const la = par$e(e.target.value)
@@ -266,7 +269,10 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="minp" className="form-control" type="text"
                placeholder="dollar value" 
-               onChange={this.dMinp}/>
+               onChange={this.dMinp}/> {/* */}
+        {this.state.minp < this.pp() ? '<' :
+         this.state.minp > this.pp() ? '>' : '='} {/* */}
+        ${$show(this.pp())}
       </div>
       <label className="control-label" for="mr">
         every 
@@ -291,7 +297,7 @@ class Loan extends React.Component {
     <div>
       <br></br><hr></hr><br></br>
       Amount repaid per {showdays(this.state.freq)} days: 
-      ${$how(this.dai()*this.state.freq)}
+      ${$how(this.pp())}
       <br></br>
       <br></br>
       ${$how(this.state.la+this.state.lc)} {/* */}
