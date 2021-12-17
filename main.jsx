@@ -113,7 +113,7 @@ class Loan extends React.Component {
     la: 0, // DOL: principal aka loan amount
     lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
     fl: 0, // FRAC: fraction of principal to be paid as interest
-    fr: .2, // FRAC: fraction of daily revenue that goes to paying back the loan
+    fr: 0, // FRAC: fraction of daily revenue that goes to paying back the loan
     mr: 0, // (DOL)  monthly revenue
     rt: 0, // (FRAC) yearly discount rate as a fraction
     minp: 0,  // (DOL) minimum repayment amount per {freq} days
@@ -244,7 +244,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="fr" className="form-control" type="text"
                placeholder="fraction" 
-               value={this.state.fr}
+               //value={this.state.fr}
                onChange={this.dFR}/> &nbsp;
         <font color={GRAY}>{showfrac(this.state.fr)}</font>
       </div>
