@@ -288,9 +288,24 @@ class Loan extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      ${$how(this.state.la+this.state.lc)} {/* */}
-      fully paid in {/* */}
-      {splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}
+Say you're a business with 
+${$how(this.state.mr)} {/* */}
+monthly revenue.
+(Adjust these numbers above!)
+You're offered a loan of 
+${$how(this.state.la)}.
+As interest on the loan, you'll pay a single fixed fee of
+${$how(this.state.lc)}.
+The principal plus the interest, totaling 
+${$how(this.state.la+this.state.lc)}, 
+you'll pay in daily payments of {/* */}
+{showfrac(this.state.fr)} {/* */}
+of your daily revenue, i.e.,
+${$how(this.dai())}/day.
+That will get the whole 
+${$how(this.state.la)} + 
+${$how(this.state.lc)} paid back in
+{splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}.
       <br></br>
       <br></br>
     </div>
@@ -298,18 +313,6 @@ class Loan extends React.Component {
 }
 
 /*
-Say you're a business with 
-${$how(this.state.mr} 
-monthly revenue.
-(Adjust these numbers above!)
-You're offered a loan of 
-${$how(this.state.la}.
-As interest on the loan, you'll pay a single fixed fee of
-${$how(this.state.lc)}.
-The principal plus the interest, totaling 
-${$how(this.state.la+this.state.lc)}, you'll pay in daily payments of 
-{showfrac(this.state.)}
-to be paid back with $fc of your revenue every day 
 */
 
 ReactDOM.render(<Loan/>, $('root'))
