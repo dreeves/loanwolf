@@ -256,7 +256,7 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="freq" className="form-control" type="text"
                placeholder="number of days" 
-               value="60"
+               //value="60"
                onChange={this.dFreq}/> days
       </div>
       <br></br>
