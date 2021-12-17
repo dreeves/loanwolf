@@ -71,22 +71,22 @@ function npvold(x, fr, mr, rt) {
 // Net Present Value of x dollars paid in daily installments of d dollars, with
 // yearly discount rate r. Mathematica: 
 // TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
-function npvold(x, d, r) {
-  return -((d - d/(exp(r/DIY))^(x/d))/(1 - exp(r/DIY)))
+function npv(x, d, r) {
+  return -d * (exp(-x*r/DIY/d) - 1) / (exp(r/DIY) - 1)
 }
-
 
 // Effective Interest Rate that makes a stream of payments totaling la+lc (loan
 // amount + loan cost) have the same time-value as la, the principal of the
 // loan. Daily payments are fr*mr/DIM. Mathematica:
-// NSolve[npv[la + lc, fr, mr, rt] == la, rt, Reals][[1, 1, 2]]
+// NSolve[npv[la + lc, fr*mr/DIM, r] == la, r, Reals][[1, 1, 2]]
 function eir(la, lc, fr, mr, min=0, max=1) {
   if (max>100) { return Infinity } // >10,000% interest? give up.
   const mid = (min+max)/2
   if (abs(min-max)<0.005)           { return mid }
-  if (npv(la+lc, fr, mr, max) > la) { return eir(la, lc, fr, mr, min, 2*max) }
-  if (npv(la+lc, fr, mr, mid) < la) { return eir(la, lc, fr, mr, min, mid) }
-  else                              { return eir(la, lc, fr, mr, mid, max) }
+// -----------------------------------------------------------------------------
+  if (npv(la+lc, fr*mr/DIM, max) > la) { return eir(la, lc, fr, mr, min,2*max) }
+  if (npv(la+lc, fr*mr/DIM, mid) < la) { return eir(la, lc, fr, mr, min, mid) }
+  else                                 { return eir(la, lc, fr, mr, mid, max) }
 }
 
 // Find the loan cost that yields the given interest rate.
