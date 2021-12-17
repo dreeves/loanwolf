@@ -248,7 +248,9 @@ class Loan extends React.Component {
       <div className="controls">
         <input id="mr" className="form-control" type="text"
                placeholder="dollar value" 
-               onChange={this.dMR}/>
+               onChange={this.dMR}/> <font color="#FF0000">
+        {this.state.mr/DIM*this.state.fr*this.state.freq < this.state.minp ?
+          'too little' : ''} </font>
       </div>
       <br></br>
       <label className="control-label" for="minp">
@@ -266,8 +268,8 @@ class Loan extends React.Component {
         <input id="freq" className="form-control" type="text"
                placeholder="number of days" 
                //value="60"
-               onChange={this.dFreq}/> {/* */}
-        {this.state.freq === 1 "day")}
+               onChange={this.dFreq}/>
+        {this.state.freq === 1 ? " day" : " days"}
       </div>
       <br></br>
       <label className="control-label" for="rt">
@@ -282,14 +284,13 @@ class Loan extends React.Component {
     <div>
       <br></br><hr></hr><br></br>
       Amount repaid per {this.state.freq} days: 
-      ${$how(this.state.mr/DIM*this.state.fr*30)}
+      ${$how(this.state.mr/DIM*this.state.fr*this.state.freq)}
       <br></br>
       <br></br>
       ${$how(this.state.la + this.state.lc)} {/* */}
       fully paid in {/* */}
-      {round((this.state.la + this.state.lc)/(this.state.mr/DIM*this.state.fr))}
-      {/* */} {/* */}
-      days
+      {splur(round((this.state.la + this.state.lc) /
+                   (this.state.mr/DIM*this.state.fr)), "day")}
       <br></br>
       <br></br>
     </div>
