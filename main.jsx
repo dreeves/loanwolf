@@ -59,13 +59,22 @@ function $how(x) {
   return isNaN(x) ? '' : Math.round(100*x) / 100
 }
 
+// #SCHDEL
 // Net Present Value of x dollars paid in daily installments equal to fraction
 // fr of daily revenue, where monthly revenue is mr and the yearly discount rate
 // is rt. Mathematica: 
 // TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
-function npv(x, fr, mr, rt) {
+function npvold(x, fr, mr, rt) {
   return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
 }
+
+// Net Present Value of x dollars paid in daily installments of d dollars, with
+// yearly discount rate r. Mathematica: 
+// TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
+function npvold(x, d, r) {
+  return -((d - d/(exp(r/DIY))^(x/d))/(1 - exp(r/DIY)))
+}
+
 
 // Effective Interest Rate that makes a stream of payments totaling la+lc (loan
 // amount + loan cost) have the same time-value as la, the principal of the
@@ -163,7 +172,7 @@ class Loan extends React.Component {
   
   dMinp = e => { // do this when the minp field changes
     const minp = par$e(e.target.value)
-    const freq = laxeval(e.target.value)
+    const freq = this.state.freq; //$("freq").value = laxeval(freq)
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
@@ -174,15 +183,15 @@ class Loan extends React.Component {
   }
 
   dFreq = e => { // do this when the freq field changes
-    const minp = par$e(e.target.value)
-    const freq = 0+e.target.value
+    const freq = laxeval(e.target.value)
+    const minp = this.state.minp; //$("minp").value = $how(minp)
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     //const mr = this.state.mr; //$("mr").value = $how(mr)
     //const rt = this.state.rt; //$("rt").value = showfrac(rt)
-    this.setState({ })
+    this.setState({ freq, mr, rt })
   }
 
   render() { return ( <div>
@@ -231,6 +240,24 @@ class Loan extends React.Component {
         <input id="mr" className="form-control" type="text"
                placeholder="dollar value" 
                onChange={this.dMR}/>
+      </div>
+      <br></br>
+      <label className="control-label" for="minp">
+        Minimum payment:
+      </label>
+      <div className="controls">
+        <input id="minp" className="form-control" type="text"
+               placeholder="dollar value" 
+               onChange={this.dMinp}/>
+      </div>
+      <label className="control-label" for="mr">
+        every 
+      </label>
+      <div className="controls">
+        <input id="freq" className="form-control" type="text"
+               placeholder="number of days" 
+               value="60"
+               onChange={this.dFreq}/> days
       </div>
       <br></br>
       <label className="control-label" for="rt">
