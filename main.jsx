@@ -161,6 +161,18 @@ class Loan extends React.Component {
     this.setState({ rt, lc, fl })
   }
   
+  dMinp = e => { // do this when the minp field changes
+    const minp = par$e(e.target.value)
+    const freq = 0+e.target.value
+    const la = this.state.la; //$("la").value = $how(la)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
+    const mr = this.state.mr; //$("mr").value = $how(mr)
+    const rt = this.state.rt; //$("rt").value = showfrac(rt)
+    this.setState({ })
+  }
+  
   render() { return ( <div>
     <div className="control-group">
       <label className="control-label" for="la">
