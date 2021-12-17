@@ -231,18 +231,6 @@ class Loan extends React.Component {
                onChange={this.dLC}/>
       </div>
       <br></br>
-
-//      <label className="control-label" for="fl">
-//        Fraction of principal to be paid as interest:
-//      </label>
-//      <div className="controls">
-//        <input id="fl" className="form-control" type="text"
-//               placeholder="fraction" 
-//               onChange={this.dFL}/> &nbsp;
-//        <font color={GRAY}>{showfrac(this.state.fl)}</font>
-//      </div>
-//      <br></br>
-*/
       <label className="control-label" for="fr">
         Fraction of daily revenue that goes to paying back the loan:
       </label>
