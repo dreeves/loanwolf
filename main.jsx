@@ -67,7 +67,7 @@ function $how(x) {
 }
 
 function showdays(x) {
-  return x==='' ? '?' : round(x)
+  return x==='' ? '?' : isNaN(x) ? '0' : round(x)
 }
 
 // #SCHDEL
@@ -304,7 +304,7 @@ of your daily revenue, i.e.,
 ${$how(this.dai())}/day.
 That will get the whole 
 ${$how(this.state.la)} + 
-${$how(this.state.lc)} paid back in
+${$how(this.state.lc)} paid back in {/* */}
 {splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}.
       <br></br>
       <br></br>
@@ -313,6 +313,10 @@ ${$how(this.state.lc)} paid back in
 }
 
 /*
+<font color="#FF0000">
+{this.state.minp > this.pp() ? 
+"But wait! }
+This is equivalent to a traditional loan 
 */
 
 ReactDOM.render(<Loan/>, $('root'))
