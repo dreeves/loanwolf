@@ -112,7 +112,7 @@ class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
     la: 0, // DOL: principal aka loan amount
     lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
-    fl: 0, // FRAC: fraction of principal to be paid as interest
+    //fl: 0, // FRAC: fraction of principal to be paid as interest
     fr: 0, // FRAC: fraction of daily revenue that goes to paying back the loan
     mr: 0, // (DOL)  monthly revenue
     rt: 0, // (FRAC) yearly discount rate as a fraction
@@ -130,37 +130,37 @@ class Loan extends React.Component {
   dLA = e => { // do this when the la field changes
     const la = par$e(e.target.value)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fl = lc/la; $("fl").value = showfrac(fl)
+    //const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ la, fl, rt })
+    this.setState({ la, rt })
   }
 
   dLC = e => { // do this when the lc field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = par$e(e.target.value)
-    const fl = lc/la; $("fl").value = showfrac(fl)
+    //const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ lc, fl, rt })
+    this.setState({ lc, rt })
   }
 
-  dFL = e => { // do this when the fl field changes
-    const la = this.state.la; //$("la").value = $how(la)
-    const fl = parsefrac(e.target.value)
-    const lc = la*fl; $("lc").value = $how(lc)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ fl, lc, rt })
-  }
+  //dFL = e => { // do this when the fl field changes
+  //  const la = this.state.la; //$("la").value = $how(la)
+  //  const fl = parsefrac(e.target.value)
+  //  const lc = la*fl; $("lc").value = $how(lc)
+  //  const fr = this.state.fr; //$("fr").value = showfrac(fr)
+  //  const mr = this.state.mr; //$("mr").value = $how(mr)
+  //  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+  //  this.setState({ fl, lc, rt })
+  //}
 
   dFR = e => { // do this when the fr field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = parsefrac(e.target.value)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
@@ -170,7 +170,7 @@ class Loan extends React.Component {
   dMR = e => { // do this when the mr field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = par$e(e.target.value)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
@@ -183,8 +183,8 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const lc = flc(la, fr, mr, rt); $("lc").value = $how(lc)
-    const fl = lc/la; $("fl").value = showfrac(fl)
-    this.setState({ rt, lc, fl })
+    //const fl = lc/la; $("fl").value = showfrac(fl)
+    this.setState({ rt, lc })
   }
   
   dMinp = e => { // do this when the minp field changes
@@ -231,16 +231,18 @@ class Loan extends React.Component {
                onChange={this.dLC}/>
       </div>
       <br></br>
-      <label className="control-label" for="fl">
-        Fraction of principal to be paid as interest:
-      </label>
-      <div className="controls">
-        <input id="fl" className="form-control" type="text"
-               placeholder="fraction" 
-               onChange={this.dFL}/> &nbsp;
-        <font color={GRAY}>{showfrac(this.state.fl)}</font>
-      </div>
-      <br></br>
+
+//      <label className="control-label" for="fl">
+//        Fraction of principal to be paid as interest:
+//      </label>
+//      <div className="controls">
+//        <input id="fl" className="form-control" type="text"
+//               placeholder="fraction" 
+//               onChange={this.dFL}/> &nbsp;
+//        <font color={GRAY}>{showfrac(this.state.fl)}</font>
+//      </div>
+//      <br></br>
+*/
       <label className="control-label" for="fr">
         Fraction of daily revenue that goes to paying back the loan:
       </label>
@@ -270,9 +272,11 @@ class Loan extends React.Component {
         <input id="minp" className="form-control" type="text"
                placeholder="dollar value" 
                onChange={this.dMinp}/> {/* */}
+        <font color={this.state.minp <= this.pp() ? "#000000" : "#FF0000"}>
         {this.state.minp < this.pp() ? '<' :
          this.state.minp > this.pp() ? '>' : '='} {/* */}
-        ${$show(this.pp())}
+        ${$how(this.pp())}
+        </font>
       </div>
       <label className="control-label" for="mr">
         every 
@@ -296,10 +300,6 @@ class Loan extends React.Component {
     </div>
     <div>
       <br></br><hr></hr><br></br>
-      Amount repaid per {showdays(this.state.freq)} days: 
-      ${$how(this.pp())}
-      <br></br>
-      <br></br>
       ${$how(this.state.la+this.state.lc)} {/* */}
       fully paid in {/* */}
       {splur(showdays((this.state.la+this.state.lc)/this.dai()), "day")}
