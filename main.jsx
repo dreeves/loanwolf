@@ -96,8 +96,8 @@ class Loan extends React.Component {
     fr: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
     mr: 0, // (DOL)  monthly revenue
     rt: 0, // (FRAC) yearly discount rate as a fraction
-    minp: 0, // (DOL) minimum repayment amount per {freq} days
-    freq: 0, // (DAYS) number of days for {minp}
+    minp: 0,  // (DOL) minimum repayment amount per {freq} days
+    freq: 60, // (DAYS) number of days for {minp}
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
@@ -163,16 +163,28 @@ class Loan extends React.Component {
   
   dMinp = e => { // do this when the minp field changes
     const minp = par$e(e.target.value)
+    const freq = laxeval(e.target.value)
+    const la = this.state.la; //$("la").value = $how(la)
+    const lc = this.state.lc; //$("lc").value = $how(lc)
+    const fl = this.state.fl; //$("fl").value = showfrac(fl)
+    const fr = this.state.fr; //$("fr").value = showfrac(fr)
+    //const mr = this.state.mr; //$("mr").value = $how(mr)
+    //const rt = this.state.rt; //$("rt").value = showfrac(rt)
+    this.setState({ minp, mr, rt })
+  }
+
+  dFreq = e => { // do this when the freq field changes
+    const minp = par$e(e.target.value)
     const freq = 0+e.target.value
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
     const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = this.state.rt; //$("rt").value = showfrac(rt)
+    //const mr = this.state.mr; //$("mr").value = $how(mr)
+    //const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ })
   }
-  
+
   render() { return ( <div>
     <div className="control-group">
       <label className="control-label" for="la">
