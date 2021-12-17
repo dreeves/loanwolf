@@ -96,6 +96,8 @@ class Loan extends React.Component {
     fr: 0, // (FRAC) fraction of daily revenue that goes to paying back the loan
     mr: 0, // (DOL)  monthly revenue
     rt: 0, // (FRAC) yearly discount rate as a fraction
+    minp: 0, // (DOL) minimum repayment amount per {freq} days
+    freq: 0, // (DAYS) number of days for {minp}
   } }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
