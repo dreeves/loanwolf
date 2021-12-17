@@ -79,14 +79,14 @@ function npv(x, d, r) {
 // amount + loan cost) have the same time-value as la, the principal of the
 // loan. Daily payments are fr*mr/DIM. Mathematica:
 // NSolve[npv[la + lc, fr*mr/DIM, r] == la, r, Reals][[1, 1, 2]]
-function eir(la, lc, fr, mr, min=0, max=1) {
-  if (max>100) { return Infinity } // >10,000% interest? give up.
-  const mid = (min+max)/2
-  if (abs(min-max)<0.005)           { return mid }
-// -----------------------------------------------------------------------------
-  if (npv(la+lc, fr*mr/DIM, max) > la) { return eir(la, lc, fr, mr, min,2*max) }
-  if (npv(la+lc, fr*mr/DIM, mid) < la) { return eir(la, lc, fr, mr, min, mid) }
-  else                                 { return eir(la, lc, fr, mr, mid, max) }
+function eir(la, lc, fr, mr, rmin=0, rmax=1) {
+  if (rmax>100) { return Infinity } // >10,000% interest? give up.
+  const rmid = (rmin+rmax)/2
+  if (abs(rmin-rmax)<0.005)     return rmid
+  const d = fr*mr/DIM
+  if (npv(la+lc, d, rmax) > la) return eir(la, lc, fr, mr, rmin, 2*rmax)
+  if (npv(la+lc, d, rmid) < la) return eir(la, lc, fr, mr, rmin, rmid)
+                                return eir(la, lc, fr, mr, rmid, rmax)
 }
 
 // Find the loan cost that yields the given interest rate.
