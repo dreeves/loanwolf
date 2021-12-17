@@ -315,7 +315,15 @@ ${$how(this.state.lc)} paid back in {/* */}
 /*
 <font color="#FF0000">
 {this.state.minp > this.pp() ? 
-"But wait! }
+`But wait! The loan has a minimum repayment rate and your revenue of \
+${$how(this.state.mr)} \
+isn't enough for the \
+{showfrac(this.state.fr)} \
+of revenue to hit that. \
+So for all this to be true, bump up your revenue until the red text goes away. \
+Then the rest of this will be true!`
+}
+</font>
 This is equivalent to a traditional loan 
 */
 
