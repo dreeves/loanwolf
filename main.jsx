@@ -2,7 +2,6 @@
  *                             CONSTANTS & GLOBALS                            *
  ******************************************************************************/
 
-
 const GRAY = "#999999"
 const DIY = 365.25 // days in year
 const DIM = DIY/12 // days in month
@@ -116,6 +115,10 @@ class Loan extends React.Component {
     minp: 0,  // (DOL) minimum repayment amount per {freq} days
     freq: 60, // (DAYS) number of days for {minp}
   } }
+  
+  dai() {
+    return this.state.mr/DIM*this.state.fr
+  }
   
   // Glitch mistakenly says syntax error on next line but it's fine, really!
   dLA = e => { // do this when the la field changes
@@ -284,13 +287,12 @@ class Loan extends React.Component {
     <div>
       <br></br><hr></hr><br></br>
       Amount repaid per {this.state.freq} days: 
-      ${$how(this.state.mr/DIM*this.state.fr*this.state.freq)}
+      ${$how(this.dai()*this.state.freq)}
       <br></br>
       <br></br>
-      ${$how(this.state.la + this.state.lc)} {/* */}
+      ${$how(this.state.la+this.state.lc)} {/* */}
       fully paid in {/* */}
-      {splur(round((this.state.la + this.state.lc) /
-                   (this.state.mr/DIM*this.state.fr)), "day")}
+      {splur(round((this.state.la+this.state.lc)/this.dai()), "day")}
       <br></br>
       <br></br>
     </div>
