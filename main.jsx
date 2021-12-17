@@ -114,10 +114,10 @@ class Loan extends React.Component {
     lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
     //fl: 0, // FRAC: fraction of principal to be paid as interest
     fr: 0, // FRAC: fraction of daily revenue that goes to paying back the loan
-    mr: 0, // (DOL)  monthly revenue
-    rt: 0, // (FRAC) yearly discount rate as a fraction
-    minp: 0,  // (DOL) minimum repayment amount per {freq} days
-    freq: 60, // (DAYS) number of days for {minp}
+    mr: 0, // DOL:  monthly revenue
+    rt: 0, // FRAC: yearly discount rate as a fraction
+    minp: 0,  // DOL: minimum repayment amount per {freq} days
+    freq: 60, // DAYS: number of days for {minp}
   } }
   
   // Daily repayment: daily revenue times fraction thereof to apply as payment
