@@ -135,20 +135,9 @@ class Loan extends React.Component {
     this.setState({ lc, rt })
   }
 
-  //dFL = e => { // do this when the fl field changes
-  //  const la = this.state.la; //$("la").value = $how(la)
-  //  const fl = parsefrac(e.target.value)
-  //  const lc = la*fl; $("lc").value = $how(lc)
-  //  const fr = this.state.fr; //$("fr").value = showfrac(fr)
-  //  const mr = this.state.mr; //$("mr").value = $how(mr)
-  //  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-  //  this.setState({ fl, lc, rt })
-  //}
-
   dFR = e => { // do this when the fr field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = parsefrac(e.target.value)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
@@ -158,7 +147,6 @@ class Loan extends React.Component {
   dMR = e => { // do this when the mr field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = par$e(e.target.value)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
@@ -171,31 +159,16 @@ class Loan extends React.Component {
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const lc = flc(la, fr, mr, rt); $("lc").value = $how(lc)
-    //const fl = lc/la; $("fl").value = showfrac(fl)
     this.setState({ rt, lc })
   }
   
   dMinp = e => { // do this when the minp field changes
     const minp = par$e(e.target.value)
-    //const freq = this.state.freq; //$("freq").value = laxeval(freq)
-    //const la = this.state.la; //$("la").value = $how(la)
-    //const lc = this.state.lc; //$("lc").value = $how(lc)
-    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
-    //const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    //const mr = this.state.mr; //$("mr").value = $how(mr)
-    //const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ minp })
   }
 
   dFreq = e => { // do this when the freq field changes
     const freq = laxeval(e.target.value)
-    //const minp = this.state.minp; //$("minp").value = $how(minp)
-    //const la = this.state.la; //$("la").value = $how(la)
-    //const lc = this.state.lc; //$("lc").value = $how(lc)
-    //const fl = this.state.fl; //$("fl").value = showfrac(fl)
-    //const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    //const mr = this.state.mr; //$("mr").value = $how(mr)
-    //const rt = this.state.rt; //$("rt").value = showfrac(rt)
     this.setState({ freq })
   }
 
@@ -333,7 +306,7 @@ APR is the best possible effective interest rate for this loan. \
   </div> ) }
 }
 
-/*
+/* scratch area
 68500
 8220
 .2
