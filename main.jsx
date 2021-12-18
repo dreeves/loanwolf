@@ -222,17 +222,6 @@ class Loan extends React.Component {
                onChange={this.dLC}/>
       </div>
       <br></br>
-      <label className="control-label" for="fr">
-        Fraction of daily revenue that goes to paying back the loan:
-      </label>
-      <div className="controls">
-        <input id="fr" className="form-control" type="text"
-               placeholder="fraction" 
-               //value={this.state.fr}
-               onChange={this.dFR}/> &nbsp;
-        <font color={GRAY}>{showfrac(this.state.fr)}</font>
-      </div>
-      <br></br>
       <label className="control-label" for="mr">
         Monthly revenue:
       </label>
@@ -242,6 +231,18 @@ class Loan extends React.Component {
                onChange={this.dMR}/> <font color="#FF0000">
         {this.state.mr/DIM*this.state.fr*this.state.freq < this.state.minp ?
           'too little' : ''} </font>
+      </div>
+      <br></br>
+      <label className="control-label" for="fr">
+        Repayment rate:
+        {/*Fraction of daily revenue that goes to paying back the loan:*/}
+      </label>
+      <div className="controls">
+        <input id="fr" className="form-control" type="text"
+               placeholder="fraction" 
+               //value={this.state.fr}
+               onChange={this.dFR}/> &nbsp;
+        <font color={GRAY}>{showfrac(this.state.fr)}</font>
       </div>
       <br></br>
       <label className="control-label" for="minp">
@@ -314,7 +315,7 @@ Then this will be actually, not just hypothetically, true!` : ''
 </font> {/* */}
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
 {showfrac(this.state.rt)} {/* */}
-and no prepayment penalty or any fees at all or other shenanigans. {/* */}
+and no prepayment penalty or any fees or other shenanigans. {/* */}
 {this.pp() > 1+this.state.minp ? 
 `(Note that the lower your revenue the better deal this is. \
 Try decreasing that \
