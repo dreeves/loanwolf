@@ -324,11 +324,20 @@ Then this will be actually, not just hypothetically, true!` : ''
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
 {showfrac(this.state.rt)} {/* */}
 and no prepayment penalty or any fees at all or other shenanigans. {/* */}
-{this.state.minp <= this.pp() ? 
+{this.pp() > 1+this.state.minp ? 
 `(Note that the lower your revenue the better deal this is. \
 Try decreasing that \
 $${$how(this.state.mr)}/mo \
-to see!)` : ''}
+to see!)` : 
+abs(this.state.minp - this.pp()) < 1 && this.state.minp > 0 ? 
+`✨
+Note that if your revenue were any lower than \
+$${$how(this.state.mr)}/mo \
+then you'd bump into the minimum payments so \
+${showfrac(this.state.rt)} \
+APR is the best possible effective interest rate for this loan. \
+✨` :
+''}
       <br></br>
       <br></br>
     </div>
@@ -336,13 +345,13 @@ to see!)` : ''}
 }
 
 /*
-✨
+`✨
 Note that if your revenue were any lower than \
 $${$how(this.state.mr)}/mo \
-then you'd bump into the minimum payments so
-${showfrac(this.state.rt)}
-APR is the best possible effective interest rate for this loan.
-✨
+then you'd bump into the minimum payments so \
+${showfrac(this.state.rt)} \
+APR is the best possible effective interest rate for this loan. \
+✨`
 
 68500
 8220
