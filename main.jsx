@@ -335,6 +335,24 @@ to see!)` : ''}
   </div> ) }
 }
 
+/*
+✨
+Note that if your revenue were any lower than \
+$${$how(this.state.mr)}/mo \
+then you'd bump into the minimum payments so
+${showfrac(this.state.rt)}
+APR is the best possible effective interest rate for this loan.
+✨
+
+68500
+8220
+.2
+21621.92
+8524.45
+60
+15%
+*/
+
 ReactDOM.render(<Loan/>, $('root'))
 
 /******************************************************************************
