@@ -301,7 +301,7 @@ Note that if your revenue were any lower than \
 $${$how(this.state.mr)}/mo \
 then you'd bump into the minimum payments so \
 ${showfrac(this.state.rt)} \
-APR is the best possible effective interest rate for this loan. \
+APR is the lowest possible effective interest rate for this loan. \
 ✨` :
 ''}
 <br></br>
