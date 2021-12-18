@@ -100,156 +100,160 @@ function flc(la, fr, mr, rt) {
 
 // -----------------------------------------------------------------------------
 class Loan extends React.Component {
-  constructor(props) { super(props); this.state = {
-    la: 0, // DOL: principal aka loan amount
-    lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
-    fr: 0, // FRAC: repayment rate; fraction of daily revenue
-    mr: 0, // DOL:  monthly revenue
-    rt: 0, // FRAC: yearly discount rate as a fraction
-    minp: 0,  // DOL: minimum repayment amount per {freq} days
-    freq: 60, // DAYS: number of days for {minp}
-  } }
-  
-  // Daily repayment: daily revenue times fraction thereof to apply as payment
-  dai() { return this.state.mr/DIM*this.state.fr }
-  
-  // Dollar amount paid per freq days
-  pp() { return this.dai()*this.state.freq }
-  
-  // Glitch mistakenly says syntax error on next line but it's fine, really!
-  dLA = e => { // do this when the la field changes
-    const la = par$e(e.target.value)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ la, rt })
-  }
 
-  dLC = e => { // do this when the lc field changes
-    const la = this.state.la; //$("la").value = $how(la)
-    const lc = par$e(e.target.value)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ lc, rt })
-  }
+constructor(props) { super(props); this.state = {
+  la: 0, // DOL: principal aka loan amount
+  lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
+  fr: 0, // FRAC: repayment rate; fraction of daily revenue
+  mr: 0, // DOL:  monthly revenue
+  rt: 0, // FRAC: yearly discount rate as a fraction
+  minp: 0,  // DOL: minimum repayment amount per {freq} days
+  freq: 60, // DAYS: number of days for {minp}
+} }
 
-  dFR = e => { // do this when the fr field changes
-    const la = this.state.la; //$("la").value = $how(la)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fr = parsefrac(e.target.value)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ fr, rt })
-  }
+// Daily repayment: daily revenue times fraction thereof to apply as payment
+dai() { return this.state.mr/DIM*this.state.fr }
 
-  dMR = e => { // do this when the mr field changes
-    const la = this.state.la; //$("la").value = $how(la)
-    const lc = this.state.lc; //$("lc").value = $how(lc)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = par$e(e.target.value)
-    const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
-    this.setState({ mr, rt })
-  }
+// Dollar amount paid per freq days
+pp() { return this.dai()*this.state.freq }
 
-  dRT = e => { // do this when the rt field changes
-    const rt = parsefrac(e.target.value)
-    const la = this.state.la; //$("la").value = $how(la)
-    const fr = this.state.fr; //$("fr").value = showfrac(fr)
-    const mr = this.state.mr; //$("mr").value = $how(mr)
-    const lc = flc(la, fr, mr, rt); $("lc").value = $how(lc)
-    this.setState({ rt, lc })
-  }
-  
-  dMinp = e => { // do this when the minp field changes
-    const minp = par$e(e.target.value)
-    this.setState({ minp })
-  }
+// Glitch mistakenly says syntax error on next line but it's fine, really!
+dLA = e => { // do this when the la field changes
+  const la = par$e(e.target.value)
+  const lc = this.state.lc; //$("lc").value = $how(lc)
+  const fr = this.state.fr; //$("fr").value = showfrac(fr)
+  const mr = this.state.mr; //$("mr").value = $how(mr)
+  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+  this.setState({ la, rt })
+}
 
-  dFreq = e => { // do this when the freq field changes
-    const freq = laxeval(e.target.value)
-    this.setState({ freq })
-  }
+dLC = e => { // do this when the lc field changes
+  const la = this.state.la; //$("la").value = $how(la)
+  const lc = par$e(e.target.value)
+  const fr = this.state.fr; //$("fr").value = showfrac(fr)
+  const mr = this.state.mr; //$("mr").value = $how(mr)
+  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+  this.setState({ lc, rt })
+}
 
-  render() { return ( <div>
-    <div className="control-group">
-      <label className="control-label" for="la">
-        Principal aka loan amount:
-      </label>
-      <div className="controls">
-        <input id="la" className="form-control" type="text" autofocus
-               placeholder="dollar value"
-               onChange={this.dLA}/> &nbsp;
-      </div>
-      <br></br>
-      <label className="control-label" for="lc">
-        Fixed fee aka interest aka loan cost:
-      </label>
-      <div className="controls">
-        <input id="lc" className="form-control" type="text"
-               placeholder="dollar value" 
-               onChange={this.dLC}/>
-      </div>
-      <br></br>
-      <label className="control-label" for="mr">
-        Monthly revenue:
-      </label>
-      <div className="controls">
-        <input id="mr" className="form-control" type="text"
-               placeholder="dollar value" 
-               onChange={this.dMR}/> <font color="#FF0000">
-        {this.state.mr/DIM*this.state.fr*this.state.freq < this.state.minp ?
-          'too little' : ''} </font>
-      </div>
-      <br></br>
-      <label className="control-label" for="fr">
-        Repayment rate:
-        {/*Fraction of daily revenue that goes to paying back the loan:*/}
-      </label>
-      <div className="controls">
-        <input id="fr" className="form-control" type="text"
-               placeholder="fraction" 
-               //value={this.state.fr}
-               onChange={this.dFR}/> &nbsp;
-        <font color={GRAY}>{showfrac(this.state.fr)}</font>
-      </div>
-      <br></br>
-      <label className="control-label" for="minp">
-        Minimum payment:
-      </label>
-      <div className="controls">
-        <input id="minp" className="form-control" type="text"
-               placeholder="dollar value" 
-               onChange={this.dMinp}/> {/* */}
-        <font color={this.state.minp <= this.pp() ? "#000000" : "#FF0000"}>
-        {this.state.minp < this.pp() ? '<' :
-         this.state.minp > this.pp() ? '>' : '='} {/* */}
-        ${$how(this.pp())}
-        </font>
-      </div>
-      <label className="control-label" for="mr">
-        every 
-      </label>
-      <div className="controls">
-        <input id="freq" className="form-control" type="text"
-               placeholder="number of days" 
-               value={this.state.freq}
-               onChange={this.dFreq}/>
-        {this.state.freq === 1 ? " day" : " days"}
-      </div>
-      <br></br>
-      <label className="control-label" for="rt">
-        Annualized interest rate:
-      </label>
-      <div className="controls">
-        <input id="rt" className="form-control" type="text"
-               placeholder="fraction" 
-               onChange={this.dRT}/>
-      </div>
-    </div>
-    <div>
-      <br></br><hr></hr><br></br>
+dFR = e => { // do this when the fr field changes
+  const la = this.state.la; //$("la").value = $how(la)
+  const lc = this.state.lc; //$("lc").value = $how(lc)
+  const fr = parsefrac(e.target.value)
+  const mr = this.state.mr; //$("mr").value = $how(mr)
+  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+  this.setState({ fr, rt })
+}
+
+dMR = e => { // do this when the mr field changes
+  const la = this.state.la; //$("la").value = $how(la)
+  const lc = this.state.lc; //$("lc").value = $how(lc)
+  const fr = this.state.fr; //$("fr").value = showfrac(fr)
+  const mr = par$e(e.target.value)
+  const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
+  this.setState({ mr, rt })
+}
+
+dRT = e => { // do this when the rt field changes
+  const rt = parsefrac(e.target.value)
+  const la = this.state.la; //$("la").value = $how(la)
+  const fr = this.state.fr; //$("fr").value = showfrac(fr)
+  const mr = this.state.mr; //$("mr").value = $how(mr)
+  const lc = flc(la, fr, mr, rt); $("lc").value = $how(lc)
+  this.setState({ rt, lc })
+}
+
+dMinp = e => { // do this when the minp field changes
+  const minp = par$e(e.target.value)
+  this.setState({ minp })
+}
+
+dFreq = e => { // do this when the freq field changes
+  const freq = laxeval(e.target.value)
+  this.setState({ freq })
+}
+
+render() { return ( <div>
+
+<div className="control-group">
+
+<label className="control-label" for="la">
+  Principal aka loan amount:
+</label>
+<div className="controls">
+  <input id="la" className="form-control" type="text" autofocus
+         placeholder="dollar value"
+         onChange={this.dLA}/> &nbsp;
+</div>
+<br></br>
+<label className="control-label" for="lc">
+  Fixed fee aka interest aka loan cost:
+</label>
+<div className="controls">
+  <input id="lc" className="form-control" type="text"
+         placeholder="dollar value" 
+         onChange={this.dLC}/>
+</div>
+<br></br>
+<label className="control-label" for="mr">
+  Monthly revenue:
+</label>
+<div className="controls">
+  <input id="mr" className="form-control" type="text"
+         placeholder="dollar value" 
+         onChange={this.dMR}/> <font color="#FF0000">
+  {this.state.mr/DIM*this.state.fr*this.state.freq < this.state.minp ?
+    'too little' : ''} </font>
+</div>
+<br></br>
+<label className="control-label" for="fr">
+  Repayment rate:
+  {/*Fraction of daily revenue that goes to paying back the loan:*/}
+</label>
+<div className="controls">
+  <input id="fr" className="form-control" type="text"
+         placeholder="fraction" 
+         //value={this.state.fr}
+         onChange={this.dFR}/> &nbsp;
+  <font color={GRAY}>{showfrac(this.state.fr)}</font>
+</div>
+<br></br>
+<label className="control-label" for="minp">
+  Minimum payment:
+</label>
+<div className="controls">
+  <input id="minp" className="form-control" type="text"
+         placeholder="dollar value" 
+         onChange={this.dMinp}/> {/* */}
+  <font color={this.state.minp <= this.pp() ? "#000000" : "#FF0000"}>
+  {this.state.minp < this.pp() ? '<' :
+   this.state.minp > this.pp() ? '>' : '='} {/* */}
+  ${$how(this.pp())}
+  </font>
+</div>
+<label className="control-label" for="mr">
+  every 
+</label>
+<div className="controls">
+  <input id="freq" className="form-control" type="text"
+         placeholder="number of days" 
+         value={this.state.freq}
+         onChange={this.dFreq}/>
+  {this.state.freq === 1 ? " day" : " days"}
+</div>
+<br></br>
+<label className="control-label" for="rt">
+  Annualized interest rate:
+</label>
+<div className="controls">
+  <input id="rt" className="form-control" type="text"
+         placeholder="fraction" 
+         onChange={this.dRT}/>
+</div>
+
+</div>
+<div>
+<br></br><hr></hr><br></br>
 Say you're a business with 
 ${$how(this.state.mr)} {/* */}
 monthly revenue.
@@ -300,11 +304,13 @@ ${showfrac(this.state.rt)} \
 APR is the best possible effective interest rate for this loan. \
 ✨` :
 ''}
-      <br></br>
-      <br></br>
-    </div>
-  </div> ) }
-}
+<br></br>
+<br></br>
+</div>
+
+</div> ) } // end render
+
+} // end class
 
 /* scratch area
 68500
