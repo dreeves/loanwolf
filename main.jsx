@@ -298,7 +298,7 @@ As interest on the loan, you'll pay a single fixed fee of
 ${$how(this.state.lc)}.
 The principal plus the interest, totaling 
 ${$how(this.state.la+this.state.lc)}, 
-you'll pay in daily payments of {/* */}
+you'll pay in daily amounts of {/* */}
 {showfrac(this.state.fr)} {/* */}
 of your daily revenue, i.e.,
 ${$how(this.dai())}/day.
@@ -309,43 +309,26 @@ ${$how(this.state.lc)} paid back in {/* */}
 <font color="#FF0000">
 {this.state.minp > this.pp() ? 
 `But wait! The loan has a minimum repayment rate of \
-${$how(this.state.minp)} \
+$${$how(this.state.minp)} \
 every \
 ${splur(showdays(this.state.freq), "day")} \
 and your revenue of \
-${$how(this.state.mr)} \
+$${$how(this.state.mr)}/mo \
 isn't enough for the \
 ${showfrac(this.state.fr)} \
 of revenue to hit that. \
-So for all this to be true, bump up your revenue until the red text goes away. \
-Then the rest of this will be true!` : ''
+Bump up your revenue until the red text goes away. \
+Then this will be actually, not just hypothetically, true!` : ''
 }
 </font> {/* */}
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
-{showfrac(this.state.rt)}
-and no prepayment penalty or any other shenanigans.
+{showfrac(this.state.rt)} {/* */}
+and no prepayment penalty or any other fees or other shenanigans.
       <br></br>
       <br></br>
     </div>
   </div> ) }
 }
-
-/*
-<font color="#FF0000">
-{this.state.minp > this.pp() ? 
-`But wait! The loan has a minimum repayment rate and your revenue of \
-${$how(this.state.mr)} \
-isn't enough for the \
-{showfrac(this.state.fr)} \
-of revenue to hit that. \
-So for all this to be true, bump up your revenue until the red text goes away. \
-Then the rest of this will be true!`
-}
-</font>
-This is equivalent to a traditional loan with an annual interest rate of
-{showfrac(this.state.rt)}
-and no prepayment penalty or any other shenanigans.
-*/
 
 ReactDOM.render(<Loan/>, $('root'))
 
