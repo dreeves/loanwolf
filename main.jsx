@@ -285,7 +285,7 @@ Then this will be actually, not just hypothetically, true!` : ''
 </font> {/* */}
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
 {showfrac(this.state.rt)} {/* */}
-and no prepayment penalty or any fees or other shenanigans. {/* */}
+and no other fees or prepayment penalty or any other shenanigans. {/* */}
 {this.pp() > 1+this.state.minp ? 
 `(Note that the lower your revenue the better deal this is. \
 Try decreasing that \
