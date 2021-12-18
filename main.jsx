@@ -70,15 +70,6 @@ function showdays(x) {
   return x==='' ? '?' : isNaN(x) ? '0' : round(x)
 }
 
-// #SCHDEL
-// Net Present Value of x dollars paid in daily installments equal to fraction
-// fr of daily revenue, where monthly revenue is mr and the yearly discount rate
-// is rt. Mathematica: 
-// TimeValue[Annuity[fr*mr/DIM, x/(fr*mr/DIM)], EffectiveInterest[rt/DIY, 0], 0]
-//function npvold(x, fr, mr, rt) {
-//  return fr*mr/DIM*(1-exp(rt/DIY)**(-x*DIM/fr/mr))/(exp(rt/DIY)-1)
-//}
-
 // Net Present Value of x dollars paid in daily installments of d dollars, with
 // yearly discount rate r. Mathematica: 
 // TimeValue[Annuity[d, x/d], EffectiveInterest[r/DIY, 0], 0]
