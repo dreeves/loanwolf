@@ -269,7 +269,7 @@ class Loan extends React.Component {
       </div>
       <br></br>
       <label className="control-label" for="rt">
-        Yearly discount rate aka effective annualized interest:
+        Annualized interest rate:
       </label>
       <div className="controls">
         <input id="rt" className="form-control" type="text"
