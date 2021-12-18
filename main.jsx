@@ -103,8 +103,7 @@ class Loan extends React.Component {
   constructor(props) { super(props); this.state = {
     la: 0, // DOL: principal aka loan amount
     lc: 0, // DOL: premium aka fixed fee for the loan aka loan cost
-    //fl: 0, // FRAC: fraction of principal to be paid as interest
-    fr: 0, // FRAC: fraction of daily revenue that goes to paying back the loan
+    fr: 0, // FRAC: repayment rate; fraction of daily revenue
     mr: 0, // DOL:  monthly revenue
     rt: 0, // FRAC: yearly discount rate as a fraction
     minp: 0,  // DOL: minimum repayment amount per {freq} days
@@ -121,7 +120,6 @@ class Loan extends React.Component {
   dLA = e => { // do this when the la field changes
     const la = par$e(e.target.value)
     const lc = this.state.lc; //$("lc").value = $how(lc)
-    //const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
@@ -131,7 +129,6 @@ class Loan extends React.Component {
   dLC = e => { // do this when the lc field changes
     const la = this.state.la; //$("la").value = $how(la)
     const lc = par$e(e.target.value)
-    //const fl = lc/la; $("fl").value = showfrac(fl)
     const fr = this.state.fr; //$("fr").value = showfrac(fr)
     const mr = this.state.mr; //$("mr").value = $how(mr)
     const rt = eir(la, lc, fr, mr); $("rt").value = showfrac(rt)
