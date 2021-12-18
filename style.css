@@ -1,18 +1,10 @@
-.implies:before {
-  content: '⇒ ';
-  margin-left: -50px;
-  display: block;
-  height: 1px;
-}
-.bid .implies { font-size: 3em; }
-.bid { margin-left: 50px; }
-
 #root { min-height: 13.64em; }
 
 body {
   font-family: helvetica, arial, sans-serif;
   margin: 25px;
   background-color: #bcf5bc;
+  font-size: 18px;
 }
 
 input { 
@@ -77,7 +69,7 @@ th, td, tr {
   border-bottom: 1px solid #ffea51;
 }
 
-.topics tr { line-height: 14px; }
+/* .topics tr { line-height: 14px; } */
 
 tr.container {height:0px;}
 
@@ -85,5 +77,5 @@ tr:hover { background-color: #ffea51 }
 
 textarea { 
   font-family: monospace; 
-  font-size: 14px;
+  font-size: 16px;
 }
