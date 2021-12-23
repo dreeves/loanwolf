@@ -243,7 +243,7 @@ render() { return ( <div>
 </div>
 <br></br>
 <label className="control-label" for="rt">
-  Annualized interest rate:
+  Annualized interest rate (APY):
 </label>
 <div className="controls">
   <input id="rt" className="form-control" type="text"
