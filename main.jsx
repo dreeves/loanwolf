@@ -51,7 +51,7 @@ function parsefrac(s) {
 }
 
 function showfrac(x) {
-  return round(100*x)+'%'
+  return (round(1000*x)/10) + '%'
 }
 
 // Parse a string representing a dollar amount
@@ -290,7 +290,7 @@ Then this will be actually, not just hypothetically, true!` : ''
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
 {showfrac(this.state.rt)} {/* */}
 and no other fees or prepayment penalty or any other shenanigans. {/* */}
-{this.pp() > 1+this.state.minp ? 
+{this.state.minp < this.pp() ? 
 `(Note that the lower your revenue the better deal this is. \
 Try decreasing that \
 $${$how(this.state.mr)}/mo \
