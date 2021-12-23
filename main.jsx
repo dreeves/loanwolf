@@ -290,7 +290,7 @@ Then this will be actually, not just hypothetically, true!` : ''
 This is equivalent to a traditional loan with an annual interest rate of {/* */}
 {showfrac(this.state.rt)} {/* */}
 and no other fees or prepayment penalty or any other shenanigans. {/* */}
-{this.state.minp < this.pp() ? 
+{this.state.minp + 1 < this.pp() ? 
 `(Note that the lower your revenue the better deal this is. \
 Try decreasing that \
 $${$how(this.state.mr)}/mo \
