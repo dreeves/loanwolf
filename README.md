@@ -1,3 +1,5 @@
+Now hosted at https://dreeves.github.io/loanwolf
+
 Thing I said to patio11 on 2021-12-10:
 
 Hiya Patrick! I made a little thing:
