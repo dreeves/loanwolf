@@ -9,4 +9,4 @@ Y'all probably have reasons you don't think it makes sense to think of Stripe Ca
 
 (Actually, it might be kind of amazing to show a little graph in the "select your offer" calculator, showing effective annualized interest as a function of revenue.)
 
-PS: As an example, if we plug in this (snarky-sounding) person's numbers -- https://twitter.com/shaneharter/status/1469041854238785536 -- we can infer that their revenue is $37.9k/mo and their annualized interest for the loan they describe would be 19%.
+PS: As an example, if we plug in this person's numbers -- https://twitter.com/shaneharter/status/1469041854238785536 -- we can infer that their revenue is $37.9k/mo and their annualized interest for the loan they describe would be 19%.
